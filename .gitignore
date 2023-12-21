@@ -23,7 +23,25 @@ go.work
 
 
 ### IntelliJ project files
-.idea
+.idea/
+**/.idea/
 *.iml
 out
 gen
+
+
+### Visual Studio Code files
+.vscode/
+**/.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+# Local History for Visual Studio Code
+.history/
+
+# Built Visual Studio Code Extensions
+*.vsix
+
