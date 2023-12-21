@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package health.v1;
+
+enum ServingStatus {
+  SERVING_STATUS_UNKNOWN_UNSPECIFIED = 0;
+  SERVING_STATUS_SERVING = 1;
+  SERVING_STATUS_NOT_SERVING = 2;
+  SERVING_STATUS_SERVICE_UNKNOWN = 3; // Used only by the Watch method.
+}
+
+message CheckRequest {
+  string message = 1;
+}
+
+message CheckResponse {
+  ServingStatus status = 1;
+  string message = 2;
+}
+
+message WatchRequest {
+  int64 seconds = 1;
+}
+
+message WatchResponse {
+  ServingStatus status = 1;
+}
+
+service HealthCheckService {
+  rpc Check(CheckRequest) returns (CheckResponse);
+  rpc Watch(WatchRequest) returns (stream WatchResponse);
+}
