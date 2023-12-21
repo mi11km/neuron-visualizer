@@ -1,0 +1,14 @@
+version: v1
+managed:
+  enabled: true
+  go_package_prefix:
+    default: github.com/mi11km/neuron-visualizer/server/proto
+# see https://buf.build/plugins
+plugins:
+  # for Go gRPC server
+  - plugin: buf.build/protocolbuffers/go # Base types for Go. Generates message and enum types.
+    out: ../server/proto
+    opt: paths=source_relative
+  - plugin: buf.build/grpc/go # Generates Go client and server stubs for the gRPC framework.
+    out: ../server/proto
+    opt: paths=source_relative
