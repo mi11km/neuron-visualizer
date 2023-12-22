@@ -12,3 +12,8 @@ plugins:
   - plugin: buf.build/grpc/go # Generates Go client and server stubs for the gRPC framework.
     out: ../server/proto
     opt: paths=source_relative
+  # for Unity gRPC client
+  - plugin: buf.build/protocolbuffers/csharp
+    out: ../client/Assets/Scripts/Proto
+  - plugin: buf.build/grpc/csharp
+    out: ../client/Assets/Scripts/Proto
