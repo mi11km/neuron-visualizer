@@ -46,6 +46,10 @@ grpc-curl-local: SERVICE := health.v1.HealthCheckService/Call
 grpc-curl-local:
 	$(BIN)/buf curl --protocol grpc --http2-prior-knowledge  --data '$(DATA)' http://localhost:8080/$(SERVICE)
 
+.PHONY: run-server
+run-server:
+	cd server && $(GO_ENV) $(GO) run cmd/main.go
+
 .PHONY: go-fmt
 go-fmt:
 	cd server && $(GO_ENV) $(GO) fmt ./...
