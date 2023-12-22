@@ -15,7 +15,7 @@ $(shell mkdir -p $(BIN))
 BUF_VERSION := v1.28.1
 $(BIN)/buf-$(BUF_VERSION):
 	unlink $(BIN)/buf || true
-	$(GO_ENV) ${GO} install github.com/bufbuild/buf/cmd/buf@$(BUF_VERSION)
+	$(GO_ENV) $(GO) install github.com/bufbuild/buf/cmd/buf@$(BUF_VERSION)
 	mv $(BIN)/buf $(BIN)/buf-$(BUF_VERSION)
 	ln -s $(BIN)/buf-$(BUF_VERSION) $(BIN)/buf
 
@@ -45,3 +45,14 @@ grpc-curl-local: DATA := {"message":"echo"}
 grpc-curl-local: SERVICE := health.v1.HealthCheckService/Call
 grpc-curl-local:
 	$(BIN)/buf curl --protocol grpc --http2-prior-knowledge  --data '$(DATA)' http://localhost:8080/$(SERVICE)
+
+.PHONY: go-fmt
+go-fmt:
+	cd server && $(GO_ENV) $(GO) fmt ./...
+
+.PHONY: go-vet
+go-vet:
+	cd server && $(GO_ENV) $(GO) vet ./...
+
+fmt: format-proto format-proto go-fmt go-vet
+

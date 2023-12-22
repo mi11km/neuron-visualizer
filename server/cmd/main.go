@@ -42,11 +42,11 @@ func main() {
 	s.GracefulStop()
 }
 
-type HealthCheckServer struct {
-	healthv1.UnimplementedHealthCheckServiceServer
-}
+var _ healthv1.HealthCheckServiceServer = (*HealthCheckServer)(nil)
 
-func (s *HealthCheckServer) Call(ctx context.Context, req *healthv1.CheckRequest) (*healthv1.CheckResponse, error) {
+type HealthCheckServer struct{}
+
+func (s *HealthCheckServer) Check(ctx context.Context, req *healthv1.CheckRequest) (*healthv1.CheckResponse, error) {
 	return &healthv1.CheckResponse{
 		Status:  healthv1.ServingStatus_SERVING_STATUS_SERVING,
 		Message: req.Message,
