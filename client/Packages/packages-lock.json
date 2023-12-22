@@ -1,5 +1,19 @@
 {
   "dependencies": {
+    "com.cysharp.yetanotherhttphandler": {
+      "version": "https://github.com/Cysharp/YetAnotherHttpHandler.git?path=src/YetAnotherHttpHandler",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "bd2c5260218a13bd96aa242d19d1bdd1b9fa8501"
+    },
+    "com.github-glitchenzo.nugetforunity": {
+      "version": "https://github.com/GlitchEnzo/NuGetForUnity.git?path=/src/NuGetForUnity",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "66b0ede0392ae7e7e74121412fc9185847642b35"
+    },
     "com.unity.collab-proxy": {
       "version": "2.2.0",
       "depth": 0,

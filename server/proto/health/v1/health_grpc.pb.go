@@ -81,15 +81,14 @@ func (x *healthCheckServiceWatchClient) Recv() (*WatchResponse, error) {
 }
 
 // HealthCheckServiceServer is the server API for HealthCheckService service.
-// All implementations must embed UnimplementedHealthCheckServiceServer
+// All implementations should embed UnimplementedHealthCheckServiceServer
 // for forward compatibility
 type HealthCheckServiceServer interface {
 	Check(context.Context, *CheckRequest) (*CheckResponse, error)
 	Watch(*WatchRequest, HealthCheckService_WatchServer) error
-	mustEmbedUnimplementedHealthCheckServiceServer()
 }
 
-// UnimplementedHealthCheckServiceServer must be embedded to have forward compatible implementations.
+// UnimplementedHealthCheckServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedHealthCheckServiceServer struct {
 }
 
@@ -99,7 +98,6 @@ func (UnimplementedHealthCheckServiceServer) Check(context.Context, *CheckReques
 func (UnimplementedHealthCheckServiceServer) Watch(*WatchRequest, HealthCheckService_WatchServer) error {
 	return status.Errorf(codes.Unimplemented, "method Watch not implemented")
 }
-func (UnimplementedHealthCheckServiceServer) mustEmbedUnimplementedHealthCheckServiceServer() {}
 
 // UnsafeHealthCheckServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to HealthCheckServiceServer will
