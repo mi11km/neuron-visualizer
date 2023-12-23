@@ -7,7 +7,6 @@ import (
 	"net"
 	"os"
 	"os/signal"
-	"time"
 
 	healthv1 "github.com/mi11km/neuron-visualizer/server/proto/health/v1"
 	"google.golang.org/grpc"
@@ -24,7 +23,7 @@ func main() {
 
 	s := grpc.NewServer()
 
-	healthv1.RegisterHealthCheckServiceServer(s, &HealthCheckServer{})
+	healthv1.RegisterHealthServiceServer(s, &HealthServiceServer{})
 
 	reflection.Register(s)
 
@@ -42,25 +41,21 @@ func main() {
 	s.GracefulStop()
 }
 
-var _ healthv1.HealthCheckServiceServer = (*HealthCheckServer)(nil)
+var _ healthv1.HealthServiceServer = (*HealthServiceServer)(nil)
 
-type HealthCheckServer struct{}
+type HealthServiceServer struct{}
 
-func (s *HealthCheckServer) Check(ctx context.Context, req *healthv1.CheckRequest) (*healthv1.CheckResponse, error) {
+func (s *HealthServiceServer) Check(ctx context.Context, req *healthv1.CheckRequest) (*healthv1.CheckResponse, error) {
 	return &healthv1.CheckResponse{
-		Status:  healthv1.ServingStatus_SERVING_STATUS_SERVING,
-		Message: req.Message,
+		Status: healthv1.ServingStatus_SERVING_STATUS_OK,
 	}, nil
 }
 
-func (s *HealthCheckServer) Watch(req *healthv1.WatchRequest, watch healthv1.HealthCheckService_WatchServer) error {
-	for i := 0; i < int(req.Seconds); i++ {
-		if err := watch.Send(&healthv1.WatchResponse{
-			Status: healthv1.ServingStatus_SERVING_STATUS_SERVING,
-		}); err != nil {
-			return err
-		}
-		time.Sleep(time.Second)
+func (s *HealthServiceServer) Watch(req *healthv1.WatchRequest, client healthv1.HealthService_WatchServer) error {
+	if err := client.Send(&healthv1.WatchResponse{
+		Status: healthv1.ServingStatus_SERVING_STATUS_OK,
+	}); err != nil {
+		return err
 	}
 	return nil
 }
