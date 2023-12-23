@@ -18,11 +18,11 @@ public class Test : MonoBehaviour
         using var httpHandler = new YetAnotherHttpHandler() { SkipCertificateVerification = true, Http2Only = true };
         using var channel = GrpcChannel.ForAddress(Endpoint, new GrpcChannelOptions() { HttpHandler = httpHandler });
 
-        var healthCheckServiceClient = new HealthCheckService.HealthCheckServiceClient(channel);
-        var response = healthCheckServiceClient.Check(new CheckRequest() { Message = "From Unity" });
+        var healthCheckServiceClient = new HealthService.HealthServiceClient(channel);
+        var response = healthCheckServiceClient.Check(new CheckRequest() { Service = "NeuronService" });
         Debug.Log(response.ToString());
 
-        var streamResponse = healthCheckServiceClient.Watch(new WatchRequest() { Seconds = 100 });
+        var streamResponse = healthCheckServiceClient.Watch(new WatchRequest() { Service = "NeruronServcie" });
 
         var cancellationTokenSource = new CancellationTokenSource();
         while (await streamResponse.ResponseStream.MoveNext(cancellationTokenSource.Token))

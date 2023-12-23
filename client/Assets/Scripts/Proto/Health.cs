@@ -25,28 +25,27 @@ namespace Health.V1 {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChZoZWFsdGgvdjEvaGVhbHRoLnByb3RvEgloZWFsdGgudjEiKAoMQ2hlY2tS",
-            "ZXF1ZXN0EhgKB21lc3NhZ2UYASABKAlSB21lc3NhZ2UiWwoNQ2hlY2tSZXNw",
+            "ZXF1ZXN0EhgKB3NlcnZpY2UYASABKAlSB3NlcnZpY2UiQQoNQ2hlY2tSZXNw",
             "b25zZRIwCgZzdGF0dXMYASABKA4yGC5oZWFsdGgudjEuU2VydmluZ1N0YXR1",
-            "c1IGc3RhdHVzEhgKB21lc3NhZ2UYAiABKAlSB21lc3NhZ2UiKAoMV2F0Y2hS",
-            "ZXF1ZXN0EhgKB3NlY29uZHMYASABKANSB3NlY29uZHMiQQoNV2F0Y2hSZXNw",
-            "b25zZRIwCgZzdGF0dXMYASABKA4yGC5oZWFsdGgudjEuU2VydmluZ1N0YXR1",
-            "c1IGc3RhdHVzKpcBCg1TZXJ2aW5nU3RhdHVzEiYKIlNFUlZJTkdfU1RBVFVT",
-            "X1VOS05PV05fVU5TUEVDSUZJRUQQABIaChZTRVJWSU5HX1NUQVRVU19TRVJW",
-            "SU5HEAESHgoaU0VSVklOR19TVEFUVVNfTk9UX1NFUlZJTkcQAhIiCh5TRVJW",
-            "SU5HX1NUQVRVU19TRVJWSUNFX1VOS05PV04QAzKOAQoSSGVhbHRoQ2hlY2tT",
-            "ZXJ2aWNlEjoKBUNoZWNrEhcuaGVhbHRoLnYxLkNoZWNrUmVxdWVzdBoYLmhl",
-            "YWx0aC52MS5DaGVja1Jlc3BvbnNlEjwKBVdhdGNoEhcuaGVhbHRoLnYxLldh",
-            "dGNoUmVxdWVzdBoYLmhlYWx0aC52MS5XYXRjaFJlc3BvbnNlMAFCpgEKDWNv",
-            "bS5oZWFsdGgudjFCC0hlYWx0aFByb3RvUAFaQ2dpdGh1Yi5jb20vbWkxMWtt",
-            "L25ldXJvbi12aXN1YWxpemVyL3NlcnZlci9wcm90by9oZWFsdGgvdjE7aGVh",
-            "bHRodjGiAgNIWFiqAglIZWFsdGguVjHKAglIZWFsdGhcVjHiAhVIZWFsdGhc",
-            "VjFcR1BCTWV0YWRhdGHqAgpIZWFsdGg6OlYxYgZwcm90bzM="));
+            "c1IGc3RhdHVzIigKDFdhdGNoUmVxdWVzdBIYCgdzZXJ2aWNlGAEgASgJUgdz",
+            "ZXJ2aWNlIkEKDVdhdGNoUmVzcG9uc2USMAoGc3RhdHVzGAEgASgOMhguaGVh",
+            "bHRoLnYxLlNlcnZpbmdTdGF0dXNSBnN0YXR1cyp+Cg1TZXJ2aW5nU3RhdHVz",
+            "Eh4KGlNFUlZJTkdfU1RBVFVTX1VOU1BFQ0lGSUVEEAASFQoRU0VSVklOR19T",
+            "VEFUVVNfT0sQARIaChZTRVJWSU5HX1NUQVRVU19OT1RfWUVUEAISGgoWU0VS",
+            "VklOR19TVEFUVVNfVU5LTk9XThADMokBCg1IZWFsdGhTZXJ2aWNlEjoKBUNo",
+            "ZWNrEhcuaGVhbHRoLnYxLkNoZWNrUmVxdWVzdBoYLmhlYWx0aC52MS5DaGVj",
+            "a1Jlc3BvbnNlEjwKBVdhdGNoEhcuaGVhbHRoLnYxLldhdGNoUmVxdWVzdBoY",
+            "LmhlYWx0aC52MS5XYXRjaFJlc3BvbnNlMAFCpgEKDWNvbS5oZWFsdGgudjFC",
+            "C0hlYWx0aFByb3RvUAFaQ2dpdGh1Yi5jb20vbWkxMWttL25ldXJvbi12aXN1",
+            "YWxpemVyL3NlcnZlci9wcm90by9oZWFsdGgvdjE7aGVhbHRodjGiAgNIWFiq",
+            "AglIZWFsdGguVjHKAglIZWFsdGhcVjHiAhVIZWFsdGhcVjFcR1BCTWV0YWRh",
+            "dGHqAgpIZWFsdGg6OlYxYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Health.V1.ServingStatus), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Health.V1.CheckRequest), global::Health.V1.CheckRequest.Parser, new[]{ "Message" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Health.V1.CheckResponse), global::Health.V1.CheckResponse.Parser, new[]{ "Status", "Message" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Health.V1.WatchRequest), global::Health.V1.WatchRequest.Parser, new[]{ "Seconds" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Health.V1.CheckRequest), global::Health.V1.CheckRequest.Parser, new[]{ "Service" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Health.V1.CheckResponse), global::Health.V1.CheckResponse.Parser, new[]{ "Status" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Health.V1.WatchRequest), global::Health.V1.WatchRequest.Parser, new[]{ "Service" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Health.V1.WatchResponse), global::Health.V1.WatchResponse.Parser, new[]{ "Status" }, null, null, null, null)
           }));
     }
@@ -54,14 +53,26 @@ namespace Health.V1 {
 
   }
   #region Enums
+  /// <summary>
+  /// 提供ステータス
+  /// </summary>
   public enum ServingStatus {
-    [pbr::OriginalName("SERVING_STATUS_UNKNOWN_UNSPECIFIED")] UnknownUnspecified = 0,
-    [pbr::OriginalName("SERVING_STATUS_SERVING")] Serving = 1,
-    [pbr::OriginalName("SERVING_STATUS_NOT_SERVING")] NotServing = 2,
     /// <summary>
-    /// Used only by the Watch method.
+    /// 不明
     /// </summary>
-    [pbr::OriginalName("SERVING_STATUS_SERVICE_UNKNOWN")] ServiceUnknown = 3,
+    [pbr::OriginalName("SERVING_STATUS_UNSPECIFIED")] Unspecified = 0,
+    /// <summary>
+    /// 提供できる
+    /// </summary>
+    [pbr::OriginalName("SERVING_STATUS_OK")] Ok = 1,
+    /// <summary>
+    /// まだ提供できない
+    /// </summary>
+    [pbr::OriginalName("SERVING_STATUS_NOT_YET")] NotYet = 2,
+    /// <summary>
+    /// 存在しない
+    /// </summary>
+    [pbr::OriginalName("SERVING_STATUS_UNKNOWN")] Unknown = 3,
   }
 
   #endregion
@@ -102,7 +113,7 @@ namespace Health.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public CheckRequest(CheckRequest other) : this() {
-      message_ = other.message_;
+      service_ = other.service_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -112,15 +123,18 @@ namespace Health.V1 {
       return new CheckRequest(this);
     }
 
-    /// <summary>Field number for the "message" field.</summary>
-    public const int MessageFieldNumber = 1;
-    private string message_ = "";
+    /// <summary>Field number for the "service" field.</summary>
+    public const int ServiceFieldNumber = 1;
+    private string service_ = "";
+    /// <summary>
+    /// サービス名 (ex. HealthService)
+    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string Message {
-      get { return message_; }
+    public string Service {
+      get { return service_; }
       set {
-        message_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        service_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
@@ -139,7 +153,7 @@ namespace Health.V1 {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (Message != other.Message) return false;
+      if (Service != other.Service) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -147,7 +161,7 @@ namespace Health.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Message.Length != 0) hash ^= Message.GetHashCode();
+      if (Service.Length != 0) hash ^= Service.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -166,9 +180,9 @@ namespace Health.V1 {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Message.Length != 0) {
+      if (Service.Length != 0) {
         output.WriteRawTag(10);
-        output.WriteString(Message);
+        output.WriteString(Service);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -180,9 +194,9 @@ namespace Health.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Message.Length != 0) {
+      if (Service.Length != 0) {
         output.WriteRawTag(10);
-        output.WriteString(Message);
+        output.WriteString(Service);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -194,8 +208,8 @@ namespace Health.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Message.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Message);
+      if (Service.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Service);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -209,8 +223,8 @@ namespace Health.V1 {
       if (other == null) {
         return;
       }
-      if (other.Message.Length != 0) {
-        Message = other.Message;
+      if (other.Service.Length != 0) {
+        Service = other.Service;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -228,7 +242,7 @@ namespace Health.V1 {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 10: {
-            Message = input.ReadString();
+            Service = input.ReadString();
             break;
           }
         }
@@ -247,7 +261,7 @@ namespace Health.V1 {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 10: {
-            Message = input.ReadString();
+            Service = input.ReadString();
             break;
           }
         }
@@ -293,7 +307,6 @@ namespace Health.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public CheckResponse(CheckResponse other) : this() {
       status_ = other.status_;
-      message_ = other.message_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -305,25 +318,16 @@ namespace Health.V1 {
 
     /// <summary>Field number for the "status" field.</summary>
     public const int StatusFieldNumber = 1;
-    private global::Health.V1.ServingStatus status_ = global::Health.V1.ServingStatus.UnknownUnspecified;
+    private global::Health.V1.ServingStatus status_ = global::Health.V1.ServingStatus.Unspecified;
+    /// <summary>
+    /// 提供ステータス
+    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::Health.V1.ServingStatus Status {
       get { return status_; }
       set {
         status_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "message" field.</summary>
-    public const int MessageFieldNumber = 2;
-    private string message_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string Message {
-      get { return message_; }
-      set {
-        message_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
@@ -343,7 +347,6 @@ namespace Health.V1 {
         return true;
       }
       if (Status != other.Status) return false;
-      if (Message != other.Message) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -351,8 +354,7 @@ namespace Health.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Status != global::Health.V1.ServingStatus.UnknownUnspecified) hash ^= Status.GetHashCode();
-      if (Message.Length != 0) hash ^= Message.GetHashCode();
+      if (Status != global::Health.V1.ServingStatus.Unspecified) hash ^= Status.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -371,13 +373,9 @@ namespace Health.V1 {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Status != global::Health.V1.ServingStatus.UnknownUnspecified) {
+      if (Status != global::Health.V1.ServingStatus.Unspecified) {
         output.WriteRawTag(8);
         output.WriteEnum((int) Status);
-      }
-      if (Message.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(Message);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -389,13 +387,9 @@ namespace Health.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Status != global::Health.V1.ServingStatus.UnknownUnspecified) {
+      if (Status != global::Health.V1.ServingStatus.Unspecified) {
         output.WriteRawTag(8);
         output.WriteEnum((int) Status);
-      }
-      if (Message.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(Message);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -407,11 +401,8 @@ namespace Health.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Status != global::Health.V1.ServingStatus.UnknownUnspecified) {
+      if (Status != global::Health.V1.ServingStatus.Unspecified) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Status);
-      }
-      if (Message.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Message);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -425,11 +416,8 @@ namespace Health.V1 {
       if (other == null) {
         return;
       }
-      if (other.Status != global::Health.V1.ServingStatus.UnknownUnspecified) {
+      if (other.Status != global::Health.V1.ServingStatus.Unspecified) {
         Status = other.Status;
-      }
-      if (other.Message.Length != 0) {
-        Message = other.Message;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -450,10 +438,6 @@ namespace Health.V1 {
             Status = (global::Health.V1.ServingStatus) input.ReadEnum();
             break;
           }
-          case 18: {
-            Message = input.ReadString();
-            break;
-          }
         }
       }
     #endif
@@ -471,10 +455,6 @@ namespace Health.V1 {
             break;
           case 8: {
             Status = (global::Health.V1.ServingStatus) input.ReadEnum();
-            break;
-          }
-          case 18: {
-            Message = input.ReadString();
             break;
           }
         }
@@ -519,7 +499,7 @@ namespace Health.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public WatchRequest(WatchRequest other) : this() {
-      seconds_ = other.seconds_;
+      service_ = other.service_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -529,15 +509,18 @@ namespace Health.V1 {
       return new WatchRequest(this);
     }
 
-    /// <summary>Field number for the "seconds" field.</summary>
-    public const int SecondsFieldNumber = 1;
-    private long seconds_;
+    /// <summary>Field number for the "service" field.</summary>
+    public const int ServiceFieldNumber = 1;
+    private string service_ = "";
+    /// <summary>
+    /// サービス名 (ex. HealthService)
+    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public long Seconds {
-      get { return seconds_; }
+    public string Service {
+      get { return service_; }
       set {
-        seconds_ = value;
+        service_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
@@ -556,7 +539,7 @@ namespace Health.V1 {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (Seconds != other.Seconds) return false;
+      if (Service != other.Service) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -564,7 +547,7 @@ namespace Health.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Seconds != 0L) hash ^= Seconds.GetHashCode();
+      if (Service.Length != 0) hash ^= Service.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -583,9 +566,9 @@ namespace Health.V1 {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Seconds != 0L) {
-        output.WriteRawTag(8);
-        output.WriteInt64(Seconds);
+      if (Service.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(Service);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -597,9 +580,9 @@ namespace Health.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Seconds != 0L) {
-        output.WriteRawTag(8);
-        output.WriteInt64(Seconds);
+      if (Service.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(Service);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -611,8 +594,8 @@ namespace Health.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Seconds != 0L) {
-        size += 1 + pb::CodedOutputStream.ComputeInt64Size(Seconds);
+      if (Service.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Service);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -626,8 +609,8 @@ namespace Health.V1 {
       if (other == null) {
         return;
       }
-      if (other.Seconds != 0L) {
-        Seconds = other.Seconds;
+      if (other.Service.Length != 0) {
+        Service = other.Service;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -644,8 +627,8 @@ namespace Health.V1 {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 8: {
-            Seconds = input.ReadInt64();
+          case 10: {
+            Service = input.ReadString();
             break;
           }
         }
@@ -663,8 +646,8 @@ namespace Health.V1 {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 8: {
-            Seconds = input.ReadInt64();
+          case 10: {
+            Service = input.ReadString();
             break;
           }
         }
@@ -721,7 +704,10 @@ namespace Health.V1 {
 
     /// <summary>Field number for the "status" field.</summary>
     public const int StatusFieldNumber = 1;
-    private global::Health.V1.ServingStatus status_ = global::Health.V1.ServingStatus.UnknownUnspecified;
+    private global::Health.V1.ServingStatus status_ = global::Health.V1.ServingStatus.Unspecified;
+    /// <summary>
+    /// 提供ステータス
+    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::Health.V1.ServingStatus Status {
@@ -754,7 +740,7 @@ namespace Health.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Status != global::Health.V1.ServingStatus.UnknownUnspecified) hash ^= Status.GetHashCode();
+      if (Status != global::Health.V1.ServingStatus.Unspecified) hash ^= Status.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -773,7 +759,7 @@ namespace Health.V1 {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Status != global::Health.V1.ServingStatus.UnknownUnspecified) {
+      if (Status != global::Health.V1.ServingStatus.Unspecified) {
         output.WriteRawTag(8);
         output.WriteEnum((int) Status);
       }
@@ -787,7 +773,7 @@ namespace Health.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Status != global::Health.V1.ServingStatus.UnknownUnspecified) {
+      if (Status != global::Health.V1.ServingStatus.Unspecified) {
         output.WriteRawTag(8);
         output.WriteEnum((int) Status);
       }
@@ -801,7 +787,7 @@ namespace Health.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Status != global::Health.V1.ServingStatus.UnknownUnspecified) {
+      if (Status != global::Health.V1.ServingStatus.Unspecified) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Status);
       }
       if (_unknownFields != null) {
@@ -816,7 +802,7 @@ namespace Health.V1 {
       if (other == null) {
         return;
       }
-      if (other.Status != global::Health.V1.ServingStatus.UnknownUnspecified) {
+      if (other.Status != global::Health.V1.ServingStatus.Unspecified) {
         Status = other.Status;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);

@@ -2,31 +2,41 @@ syntax = "proto3";
 
 package health.v1;
 
+// 提供ステータス
 enum ServingStatus {
-  SERVING_STATUS_UNKNOWN_UNSPECIFIED = 0;
-  SERVING_STATUS_SERVING = 1;
-  SERVING_STATUS_NOT_SERVING = 2;
-  SERVING_STATUS_SERVICE_UNKNOWN = 3; // Used only by the Watch method.
+  // 不明
+  SERVING_STATUS_UNSPECIFIED = 0;
+  // 提供できる
+  SERVING_STATUS_OK = 1;
+  // まだ提供できない
+  SERVING_STATUS_NOT_YET = 2;
+  // 存在しない
+  SERVING_STATUS_UNKNOWN = 3;
 }
 
 message CheckRequest {
-  string message = 1;
+  // サービス名 (ex. HealthService)
+  string service = 1;
 }
 
 message CheckResponse {
+  // 提供ステータス
   ServingStatus status = 1;
-  string message = 2;
 }
 
 message WatchRequest {
-  int64 seconds = 1;
+  // サービス名 (ex. HealthService)
+  string service = 1;
 }
 
 message WatchResponse {
+  // 提供ステータス
   ServingStatus status = 1;
 }
 
-service HealthCheckService {
+service HealthService {
+  // サービスの動作状況を確認
   rpc Check(CheckRequest) returns (CheckResponse);
+  // サービスの動作状況を監視
   rpc Watch(WatchRequest) returns (stream WatchResponse);
 }

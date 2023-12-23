@@ -23,9 +23,9 @@ func main() {
 	}
 	defer conn.Close()
 
-	client := healthv1.NewHealthCheckServiceClient(conn)
+	client := healthv1.NewHealthServiceClient(conn)
 	res, err := client.Check(context.Background(), &healthv1.CheckRequest{
-		Message: "From Go Client",
+		Service: "NeuronService",
 	})
 	if err != nil {
 		panic(err)

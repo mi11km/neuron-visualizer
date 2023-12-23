@@ -8,9 +8,9 @@
 using grpc = global::Grpc.Core;
 
 namespace Health.V1 {
-  public static partial class HealthCheckService
+  public static partial class HealthService
   {
-    static readonly string __ServiceName = "health.v1.HealthCheckService";
+    static readonly string __ServiceName = "health.v1.HealthService";
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static void __Helper_SerializeMessage(global::Google.Protobuf.IMessage message, grpc::SerializationContext context)
@@ -76,16 +76,29 @@ namespace Health.V1 {
       get { return global::Health.V1.HealthReflection.Descriptor.Services[0]; }
     }
 
-    /// <summary>Base class for server-side implementations of HealthCheckService</summary>
-    [grpc::BindServiceMethod(typeof(HealthCheckService), "BindService")]
-    public abstract partial class HealthCheckServiceBase
+    /// <summary>Base class for server-side implementations of HealthService</summary>
+    [grpc::BindServiceMethod(typeof(HealthService), "BindService")]
+    public abstract partial class HealthServiceBase
     {
+      /// <summary>
+      /// サービスの動作状況を確認
+      /// </summary>
+      /// <param name="request">The request received from the client.</param>
+      /// <param name="context">The context of the server-side call handler being invoked.</param>
+      /// <returns>The response to send back to the client (wrapped by a task).</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       public virtual global::System.Threading.Tasks.Task<global::Health.V1.CheckResponse> Check(global::Health.V1.CheckRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
 
+      /// <summary>
+      /// サービスの動作状況を監視
+      /// </summary>
+      /// <param name="request">The request received from the client.</param>
+      /// <param name="responseStream">Used for sending responses back to the client.</param>
+      /// <param name="context">The context of the server-side call handler being invoked.</param>
+      /// <returns>A task indicating completion of the handler.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       public virtual global::System.Threading.Tasks.Task Watch(global::Health.V1.WatchRequest request, grpc::IServerStreamWriter<global::Health.V1.WatchResponse> responseStream, grpc::ServerCallContext context)
       {
@@ -94,58 +107,100 @@ namespace Health.V1 {
 
     }
 
-    /// <summary>Client for HealthCheckService</summary>
-    public partial class HealthCheckServiceClient : grpc::ClientBase<HealthCheckServiceClient>
+    /// <summary>Client for HealthService</summary>
+    public partial class HealthServiceClient : grpc::ClientBase<HealthServiceClient>
     {
-      /// <summary>Creates a new client for HealthCheckService</summary>
+      /// <summary>Creates a new client for HealthService</summary>
       /// <param name="channel">The channel to use to make remote calls.</param>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public HealthCheckServiceClient(grpc::ChannelBase channel) : base(channel)
+      public HealthServiceClient(grpc::ChannelBase channel) : base(channel)
       {
       }
-      /// <summary>Creates a new client for HealthCheckService that uses a custom <c>CallInvoker</c>.</summary>
+      /// <summary>Creates a new client for HealthService that uses a custom <c>CallInvoker</c>.</summary>
       /// <param name="callInvoker">The callInvoker to use to make remote calls.</param>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public HealthCheckServiceClient(grpc::CallInvoker callInvoker) : base(callInvoker)
+      public HealthServiceClient(grpc::CallInvoker callInvoker) : base(callInvoker)
       {
       }
       /// <summary>Protected parameterless constructor to allow creation of test doubles.</summary>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      protected HealthCheckServiceClient() : base()
+      protected HealthServiceClient() : base()
       {
       }
       /// <summary>Protected constructor to allow creation of configured clients.</summary>
       /// <param name="configuration">The client configuration.</param>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      protected HealthCheckServiceClient(ClientBaseConfiguration configuration) : base(configuration)
+      protected HealthServiceClient(ClientBaseConfiguration configuration) : base(configuration)
       {
       }
 
+      /// <summary>
+      /// サービスの動作状況を確認
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
+      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
+      /// <param name="cancellationToken">An optional token for canceling the call.</param>
+      /// <returns>The response received from the server.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       public virtual global::Health.V1.CheckResponse Check(global::Health.V1.CheckRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return Check(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
+      /// <summary>
+      /// サービスの動作状況を確認
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="options">The options for the call.</param>
+      /// <returns>The response received from the server.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       public virtual global::Health.V1.CheckResponse Check(global::Health.V1.CheckRequest request, grpc::CallOptions options)
       {
         return CallInvoker.BlockingUnaryCall(__Method_Check, null, options, request);
       }
+      /// <summary>
+      /// サービスの動作状況を確認
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
+      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
+      /// <param name="cancellationToken">An optional token for canceling the call.</param>
+      /// <returns>The call object.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       public virtual grpc::AsyncUnaryCall<global::Health.V1.CheckResponse> CheckAsync(global::Health.V1.CheckRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return CheckAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
+      /// <summary>
+      /// サービスの動作状況を確認
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="options">The options for the call.</param>
+      /// <returns>The call object.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       public virtual grpc::AsyncUnaryCall<global::Health.V1.CheckResponse> CheckAsync(global::Health.V1.CheckRequest request, grpc::CallOptions options)
       {
         return CallInvoker.AsyncUnaryCall(__Method_Check, null, options, request);
       }
+      /// <summary>
+      /// サービスの動作状況を監視
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
+      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
+      /// <param name="cancellationToken">An optional token for canceling the call.</param>
+      /// <returns>The call object.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       public virtual grpc::AsyncServerStreamingCall<global::Health.V1.WatchResponse> Watch(global::Health.V1.WatchRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return Watch(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
+      /// <summary>
+      /// サービスの動作状況を監視
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="options">The options for the call.</param>
+      /// <returns>The call object.</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       public virtual grpc::AsyncServerStreamingCall<global::Health.V1.WatchResponse> Watch(global::Health.V1.WatchRequest request, grpc::CallOptions options)
       {
@@ -153,16 +208,16 @@ namespace Health.V1 {
       }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      protected override HealthCheckServiceClient NewInstance(ClientBaseConfiguration configuration)
+      protected override HealthServiceClient NewInstance(ClientBaseConfiguration configuration)
       {
-        return new HealthCheckServiceClient(configuration);
+        return new HealthServiceClient(configuration);
       }
     }
 
     /// <summary>Creates service definition that can be registered with a server</summary>
     /// <param name="serviceImpl">An object implementing the server-side handling logic.</param>
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    public static grpc::ServerServiceDefinition BindService(HealthCheckServiceBase serviceImpl)
+    public static grpc::ServerServiceDefinition BindService(HealthServiceBase serviceImpl)
     {
       return grpc::ServerServiceDefinition.CreateBuilder()
           .AddMethod(__Method_Check, serviceImpl.Check)
@@ -174,7 +229,7 @@ namespace Health.V1 {
     /// <param name="serviceBinder">Service methods will be bound by calling <c>AddMethod</c> on this object.</param>
     /// <param name="serviceImpl">An object implementing the server-side handling logic.</param>
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    public static void BindService(grpc::ServiceBinderBase serviceBinder, HealthCheckServiceBase serviceImpl)
+    public static void BindService(grpc::ServiceBinderBase serviceBinder, HealthServiceBase serviceImpl)
     {
       serviceBinder.AddMethod(__Method_Check, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Health.V1.CheckRequest, global::Health.V1.CheckResponse>(serviceImpl.Check));
       serviceBinder.AddMethod(__Method_Watch, serviceImpl == null ? null : new grpc::ServerStreamingServerMethod<global::Health.V1.WatchRequest, global::Health.V1.WatchResponse>(serviceImpl.Watch));
