@@ -52,6 +52,10 @@ grpc-curl-local:
 run-server:
 	cd $(SERVER_PATH) && $(GO_ENV) $(GO) run cmd/main.go
 
+.PHONY: go-tidy
+go-tidy:
+	cd $(SERVER_PATH) && $(GO_ENV) $(GO) mod tidy
+
 .PHONY: go-fmt
 go-fmt:
 	cd $(SERVER_PATH) && $(GO_ENV) $(GO) fmt ./...
@@ -60,5 +64,8 @@ go-fmt:
 go-vet:
 	cd $(SERVER_PATH) && $(GO_ENV) $(GO) vet ./...
 
-fmt: format-proto lint-proto go-fmt go-vet
+.PHONY: fmt
+fmt: format-proto lint-proto go-tidy go-fmt go-vet
 
+.PHONY: generate
+generate: generate-proto
