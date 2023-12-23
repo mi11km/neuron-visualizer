@@ -41,8 +41,8 @@ format-proto: $(BIN)/buf-$(BUF_VERSION)
 	$(BIN)/buf format -w proto/
 
 .PHONY: grpc-curl-local
-grpc-curl-local: DATA := {"message":"echo"}
-grpc-curl-local: SERVICE := health.v1.HealthCheckService/Call
+grpc-curl-local: DATA := {"message":"from buf curl"}
+grpc-curl-local: SERVICE := health.v1.HealthCheckService/Check
 grpc-curl-local:
 	$(BIN)/buf curl --protocol grpc --http2-prior-knowledge  --data '$(DATA)' http://localhost:8080/$(SERVICE)
 
@@ -58,5 +58,5 @@ go-fmt:
 go-vet:
 	cd server && $(GO_ENV) $(GO) vet ./...
 
-fmt: format-proto format-proto go-fmt go-vet
+fmt: format-proto lint-proto go-fmt go-vet
 

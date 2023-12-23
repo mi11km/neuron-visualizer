@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -O3 -std=c11 -Wall
 
-all: main
+all: main clean
 
 main: main.o cell.o ion.o solve.o csparse.o timer.o
 	$(CC) ${CFLAGS} -o $@ $^
