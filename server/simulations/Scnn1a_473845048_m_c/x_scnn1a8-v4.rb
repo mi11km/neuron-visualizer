@@ -1,7 +1,7 @@
 #!/usr/bin/ruby
 
 OUTPUTFILE = "Scnn1a_473845048_m_c_ion.txt"
-INPUTFILE = "Scnn1a_473845048_m_c_swc.txt"
+INPUTFILE = "Scnn1a_473845048_m_c.swc"
 
 #        [dummy, soma,             axon,                basal dendrite,        apical dendrite]
 CM     = [-1,    1.0,              1.0,                 2.12,                  2.12]

@@ -1,7 +1,7 @@
 #pragma once
 
 #define N_COMP ( 3682 )
-#define SWC_FILE "./Scnn1a_473845048_m_c_swc.txt"
+#define SWC_FILE "./Scnn1a_473845048_m_c.swc"
 #define ION_FILE "./Scnn1a_473845048_m_c_ion.txt"
 
 typedef enum {
