@@ -309,7 +309,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1622175811
+--- !u!1 &1446270402
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -317,34 +317,36 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1622175813}
-  - component: {fileID: 1622175812}
+  - component: {fileID: 1446270404}
+  - component: {fileID: 1446270403}
   m_Layer: 0
-  m_Name: Test Object
+  m_Name: NeuronGenerator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1622175812
+--- !u!114 &1446270403
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1622175811}
+  m_GameObject: {fileID: 1446270402}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08f9207e0ed7e4a668ca6643444eea91, type: 3}
+  m_Script: {fileID: 11500000, guid: fb5592e07e3dc47ffa17f4aabd941c68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &1622175813
+  compartmentPrefab: {fileID: 6106130422647819070, guid: 81a97ee967704485cb7bbc65bd0a75ea, type: 3}
+  somaPrefab: {fileID: 6759309947291780905, guid: 4146179f30ec84d9ea740ba8999b18d9, type: 3}
+--- !u!4 &1446270404
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1622175811}
+  m_GameObject: {fileID: 1446270402}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -359,4 +361,4 @@ SceneRoots:
   m_Roots:
   - {fileID: 963194228}
   - {fileID: 705507995}
-  - {fileID: 1622175813}
+  - {fileID: 1446270404}

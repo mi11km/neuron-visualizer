@@ -25,36 +25,36 @@ namespace Neuron.V1 {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChZuZXVyb24vdjEvbmV1cm9uLnByb3RvEgluZXVyb24udjEaG2dvb2dsZS9w",
-            "cm90b2J1Zi9lbXB0eS5wcm90byI2ChNMaXN0TmV1cm9uc1Jlc3BvbnNlEh8K",
-            "C25ldXJvbl9uYW1lGAEgAygJUgpuZXVyb25OYW1lIjgKFUdldE5ldXJvblNo",
-            "YXBlUmVxdWVzdBIfCgtuZXVyb25fbmFtZRgBIAEoCVIKbmV1cm9uTmFtZSJl",
-            "ChZHZXROZXVyb25TaGFwZVJlc3BvbnNlEksKEm5ldXJvbl9jb21wYXJ0bWVu",
-            "dBgBIAMoCzIcLm5ldXJvbi52MS5OZXVyb25Db21wYXJ0bWVudFIRbmV1cm9u",
-            "Q29tcGFydG1lbnQi6wEKEU5ldXJvbkNvbXBhcnRtZW50Eg4KAmlkGAEgASgD",
-            "UgJpZBI0CgR0eXBlGAIgASgOMiAubmV1cm9uLnYxLk5ldXJvbkNvbXBhcnRt",
-            "ZW50VHlwZVIEdHlwZRIdCgpwb3NpdGlvbl94GAMgASgCUglwb3NpdGlvblgS",
-            "HQoKcG9zaXRpb25feRgEIAEoAlIJcG9zaXRpb25ZEh0KCnBvc2l0aW9uX3oY",
-            "BSABKAJSCXBvc2l0aW9uWhIWCgZyYWRpdXMYBiABKAJSBnJhZGl1cxIbCglw",
-            "YXJlbnRfaWQYByABKANSCHBhcmVudElkKt0BChVOZXVyb25Db21wYXJ0bWVu",
-            "dFR5cGUSJwojTkVVUk9OX0NPTVBBUlRNRU5UX1RZUEVfVU5TUEVDSUZJRUQQ",
-            "ABIgChxORVVST05fQ09NUEFSVE1FTlRfVFlQRV9TT01BEAESIAocTkVVUk9O",
-            "X0NPTVBBUlRNRU5UX1RZUEVfQVhPThACEioKJk5FVVJPTl9DT01QQVJUTUVO",
-            "VF9UWVBFX0JBU0FMX0RFTkRSSVRFEAMSKwonTkVVUk9OX0NPTVBBUlRNRU5U",
-            "X1RZUEVfQVBJQ0FMX0RFTkRSSVRFEAQyrQEKDU5ldXJvblNlcnZpY2USRQoL",
-            "TGlzdE5ldXJvbnMSFi5nb29nbGUucHJvdG9idWYuRW1wdHkaHi5uZXVyb24u",
-            "djEuTGlzdE5ldXJvbnNSZXNwb25zZRJVCg5HZXROZXVyb25TaGFwZRIgLm5l",
-            "dXJvbi52MS5HZXROZXVyb25TaGFwZVJlcXVlc3QaIS5uZXVyb24udjEuR2V0",
-            "TmV1cm9uU2hhcGVSZXNwb25zZUKmAQoNY29tLm5ldXJvbi52MUILTmV1cm9u",
-            "UHJvdG9QAVpDZ2l0aHViLmNvbS9taTExa20vbmV1cm9uLXZpc3VhbGl6ZXIv",
-            "c2VydmVyL3Byb3RvL25ldXJvbi92MTtuZXVyb252MaICA05YWKoCCU5ldXJv",
-            "bi5WMcoCCU5ldXJvblxWMeICFU5ldXJvblxWMVxHUEJNZXRhZGF0YeoCCk5l",
-            "dXJvbjo6VjFiBnByb3RvMw=="));
+            "cm90b2J1Zi9lbXB0eS5wcm90byI4ChNMaXN0TmV1cm9uc1Jlc3BvbnNlEiEK",
+            "DG5ldXJvbl9uYW1lcxgBIAMoCVILbmV1cm9uTmFtZXMiOAoVR2V0TmV1cm9u",
+            "U2hhcGVSZXF1ZXN0Eh8KC25ldXJvbl9uYW1lGAEgASgJUgpuZXVyb25OYW1l",
+            "ImcKFkdldE5ldXJvblNoYXBlUmVzcG9uc2USTQoTbmV1cm9uX2NvbXBhcnRt",
+            "ZW50cxgBIAMoCzIcLm5ldXJvbi52MS5OZXVyb25Db21wYXJ0bWVudFISbmV1",
+            "cm9uQ29tcGFydG1lbnRzIusBChFOZXVyb25Db21wYXJ0bWVudBIOCgJpZBgB",
+            "IAEoA1ICaWQSNAoEdHlwZRgCIAEoDjIgLm5ldXJvbi52MS5OZXVyb25Db21w",
+            "YXJ0bWVudFR5cGVSBHR5cGUSHQoKcG9zaXRpb25feBgDIAEoAlIJcG9zaXRp",
+            "b25YEh0KCnBvc2l0aW9uX3kYBCABKAJSCXBvc2l0aW9uWRIdCgpwb3NpdGlv",
+            "bl96GAUgASgCUglwb3NpdGlvbloSFgoGcmFkaXVzGAYgASgCUgZyYWRpdXMS",
+            "GwoJcGFyZW50X2lkGAcgASgDUghwYXJlbnRJZCrdAQoVTmV1cm9uQ29tcGFy",
+            "dG1lbnRUeXBlEicKI05FVVJPTl9DT01QQVJUTUVOVF9UWVBFX1VOU1BFQ0lG",
+            "SUVEEAASIAocTkVVUk9OX0NPTVBBUlRNRU5UX1RZUEVfU09NQRABEiAKHE5F",
+            "VVJPTl9DT01QQVJUTUVOVF9UWVBFX0FYT04QAhIqCiZORVVST05fQ09NUEFS",
+            "VE1FTlRfVFlQRV9CQVNBTF9ERU5EUklURRADEisKJ05FVVJPTl9DT01QQVJU",
+            "TUVOVF9UWVBFX0FQSUNBTF9ERU5EUklURRAEMq0BCg1OZXVyb25TZXJ2aWNl",
+            "EkUKC0xpc3ROZXVyb25zEhYuZ29vZ2xlLnByb3RvYnVmLkVtcHR5Gh4ubmV1",
+            "cm9uLnYxLkxpc3ROZXVyb25zUmVzcG9uc2USVQoOR2V0TmV1cm9uU2hhcGUS",
+            "IC5uZXVyb24udjEuR2V0TmV1cm9uU2hhcGVSZXF1ZXN0GiEubmV1cm9uLnYx",
+            "LkdldE5ldXJvblNoYXBlUmVzcG9uc2VCpgEKDWNvbS5uZXVyb24udjFCC05l",
+            "dXJvblByb3RvUAFaQ2dpdGh1Yi5jb20vbWkxMWttL25ldXJvbi12aXN1YWxp",
+            "emVyL3NlcnZlci9wcm90by9uZXVyb24vdjE7bmV1cm9udjGiAgNOWFiqAglO",
+            "ZXVyb24uVjHKAglOZXVyb25cVjHiAhVOZXVyb25cVjFcR1BCTWV0YWRhdGHq",
+            "AgpOZXVyb246OlYxYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Google.Protobuf.WellKnownTypes.EmptyReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Neuron.V1.NeuronCompartmentType), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Neuron.V1.ListNeuronsResponse), global::Neuron.V1.ListNeuronsResponse.Parser, new[]{ "NeuronName" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Neuron.V1.ListNeuronsResponse), global::Neuron.V1.ListNeuronsResponse.Parser, new[]{ "NeuronNames" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Neuron.V1.GetNeuronShapeRequest), global::Neuron.V1.GetNeuronShapeRequest.Parser, new[]{ "NeuronName" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Neuron.V1.GetNeuronShapeResponse), global::Neuron.V1.GetNeuronShapeResponse.Parser, new[]{ "NeuronCompartment" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Neuron.V1.GetNeuronShapeResponse), global::Neuron.V1.GetNeuronShapeResponse.Parser, new[]{ "NeuronCompartments" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Neuron.V1.NeuronCompartment), global::Neuron.V1.NeuronCompartment.Parser, new[]{ "Id", "Type", "PositionX", "PositionY", "PositionZ", "Radius", "ParentId" }, null, null, null, null)
           }));
     }
@@ -123,7 +123,7 @@ namespace Neuron.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public ListNeuronsResponse(ListNeuronsResponse other) : this() {
-      neuronName_ = other.neuronName_.Clone();
+      neuronNames_ = other.neuronNames_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -133,18 +133,18 @@ namespace Neuron.V1 {
       return new ListNeuronsResponse(this);
     }
 
-    /// <summary>Field number for the "neuron_name" field.</summary>
-    public const int NeuronNameFieldNumber = 1;
-    private static readonly pb::FieldCodec<string> _repeated_neuronName_codec
+    /// <summary>Field number for the "neuron_names" field.</summary>
+    public const int NeuronNamesFieldNumber = 1;
+    private static readonly pb::FieldCodec<string> _repeated_neuronNames_codec
         = pb::FieldCodec.ForString(10);
-    private readonly pbc::RepeatedField<string> neuronName_ = new pbc::RepeatedField<string>();
+    private readonly pbc::RepeatedField<string> neuronNames_ = new pbc::RepeatedField<string>();
     /// <summary>
     /// 利用可能なニューロン名の一覧
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<string> NeuronName {
-      get { return neuronName_; }
+    public pbc::RepeatedField<string> NeuronNames {
+      get { return neuronNames_; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -162,7 +162,7 @@ namespace Neuron.V1 {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if(!neuronName_.Equals(other.neuronName_)) return false;
+      if(!neuronNames_.Equals(other.neuronNames_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -170,7 +170,7 @@ namespace Neuron.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      hash ^= neuronName_.GetHashCode();
+      hash ^= neuronNames_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -189,7 +189,7 @@ namespace Neuron.V1 {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      neuronName_.WriteTo(output, _repeated_neuronName_codec);
+      neuronNames_.WriteTo(output, _repeated_neuronNames_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -200,7 +200,7 @@ namespace Neuron.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      neuronName_.WriteTo(ref output, _repeated_neuronName_codec);
+      neuronNames_.WriteTo(ref output, _repeated_neuronNames_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -211,7 +211,7 @@ namespace Neuron.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      size += neuronName_.CalculateSize(_repeated_neuronName_codec);
+      size += neuronNames_.CalculateSize(_repeated_neuronNames_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -224,7 +224,7 @@ namespace Neuron.V1 {
       if (other == null) {
         return;
       }
-      neuronName_.Add(other.neuronName_);
+      neuronNames_.Add(other.neuronNames_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -241,7 +241,7 @@ namespace Neuron.V1 {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 10: {
-            neuronName_.AddEntriesFrom(input, _repeated_neuronName_codec);
+            neuronNames_.AddEntriesFrom(input, _repeated_neuronNames_codec);
             break;
           }
         }
@@ -260,7 +260,7 @@ namespace Neuron.V1 {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 10: {
-            neuronName_.AddEntriesFrom(ref input, _repeated_neuronName_codec);
+            neuronNames_.AddEntriesFrom(ref input, _repeated_neuronNames_codec);
             break;
           }
         }
@@ -498,7 +498,7 @@ namespace Neuron.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public GetNeuronShapeResponse(GetNeuronShapeResponse other) : this() {
-      neuronCompartment_ = other.neuronCompartment_.Clone();
+      neuronCompartments_ = other.neuronCompartments_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -508,18 +508,18 @@ namespace Neuron.V1 {
       return new GetNeuronShapeResponse(this);
     }
 
-    /// <summary>Field number for the "neuron_compartment" field.</summary>
-    public const int NeuronCompartmentFieldNumber = 1;
-    private static readonly pb::FieldCodec<global::Neuron.V1.NeuronCompartment> _repeated_neuronCompartment_codec
+    /// <summary>Field number for the "neuron_compartments" field.</summary>
+    public const int NeuronCompartmentsFieldNumber = 1;
+    private static readonly pb::FieldCodec<global::Neuron.V1.NeuronCompartment> _repeated_neuronCompartments_codec
         = pb::FieldCodec.ForMessage(10, global::Neuron.V1.NeuronCompartment.Parser);
-    private readonly pbc::RepeatedField<global::Neuron.V1.NeuronCompartment> neuronCompartment_ = new pbc::RepeatedField<global::Neuron.V1.NeuronCompartment>();
+    private readonly pbc::RepeatedField<global::Neuron.V1.NeuronCompartment> neuronCompartments_ = new pbc::RepeatedField<global::Neuron.V1.NeuronCompartment>();
     /// <summary>
     /// ニューロンの形状・空間情報
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Neuron.V1.NeuronCompartment> NeuronCompartment {
-      get { return neuronCompartment_; }
+    public pbc::RepeatedField<global::Neuron.V1.NeuronCompartment> NeuronCompartments {
+      get { return neuronCompartments_; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -537,7 +537,7 @@ namespace Neuron.V1 {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if(!neuronCompartment_.Equals(other.neuronCompartment_)) return false;
+      if(!neuronCompartments_.Equals(other.neuronCompartments_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -545,7 +545,7 @@ namespace Neuron.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      hash ^= neuronCompartment_.GetHashCode();
+      hash ^= neuronCompartments_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -564,7 +564,7 @@ namespace Neuron.V1 {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      neuronCompartment_.WriteTo(output, _repeated_neuronCompartment_codec);
+      neuronCompartments_.WriteTo(output, _repeated_neuronCompartments_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -575,7 +575,7 @@ namespace Neuron.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      neuronCompartment_.WriteTo(ref output, _repeated_neuronCompartment_codec);
+      neuronCompartments_.WriteTo(ref output, _repeated_neuronCompartments_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -586,7 +586,7 @@ namespace Neuron.V1 {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      size += neuronCompartment_.CalculateSize(_repeated_neuronCompartment_codec);
+      size += neuronCompartments_.CalculateSize(_repeated_neuronCompartments_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -599,7 +599,7 @@ namespace Neuron.V1 {
       if (other == null) {
         return;
       }
-      neuronCompartment_.Add(other.neuronCompartment_);
+      neuronCompartments_.Add(other.neuronCompartments_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -616,7 +616,7 @@ namespace Neuron.V1 {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 10: {
-            neuronCompartment_.AddEntriesFrom(input, _repeated_neuronCompartment_codec);
+            neuronCompartments_.AddEntriesFrom(input, _repeated_neuronCompartments_codec);
             break;
           }
         }
@@ -635,7 +635,7 @@ namespace Neuron.V1 {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 10: {
-            neuronCompartment_.AddEntriesFrom(ref input, _repeated_neuronCompartment_codec);
+            neuronCompartments_.AddEntriesFrom(ref input, _repeated_neuronCompartments_codec);
             break;
           }
         }

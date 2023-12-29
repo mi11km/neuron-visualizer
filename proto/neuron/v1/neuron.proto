@@ -6,7 +6,7 @@ import "google/protobuf/empty.proto";
 
 message ListNeuronsResponse {
   // 利用可能なニューロン名の一覧
-  repeated string neuron_name = 1;
+  repeated string neuron_names = 1;
 }
 
 message GetNeuronShapeRequest {
@@ -16,7 +16,7 @@ message GetNeuronShapeRequest {
 
 message GetNeuronShapeResponse {
   // ニューロンの形状・空間情報
-  repeated NeuronCompartment neuron_compartment = 1;
+  repeated NeuronCompartment neuron_compartments = 1;
 }
 
 service NeuronService {

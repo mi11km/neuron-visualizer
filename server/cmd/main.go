@@ -1,14 +1,15 @@
 package main
 
 import (
-	"context"
 	"fmt"
 	"log/slog"
 	"net"
 	"os"
 	"os/signal"
 
+	"github.com/mi11km/neuron-visualizer/server/interfaces"
 	healthv1 "github.com/mi11km/neuron-visualizer/server/proto/health/v1"
+	neuronv1 "github.com/mi11km/neuron-visualizer/server/proto/neuron/v1"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )
@@ -23,7 +24,12 @@ func main() {
 
 	s := grpc.NewServer()
 
-	healthv1.RegisterHealthServiceServer(s, &HealthServiceServer{})
+	neuronServiceServer, err := interfaces.NewNeuronServiceServer("simulations")
+	if err != nil {
+		panic(err)
+	}
+	healthv1.RegisterHealthServiceServer(s, &interfaces.HealthServiceServer{})
+	neuronv1.RegisterNeuronServiceServer(s, neuronServiceServer)
 
 	reflection.Register(s)
 
@@ -39,23 +45,4 @@ func main() {
 	<-quit
 	slog.Info("stopping gRPC server...")
 	s.GracefulStop()
-}
-
-var _ healthv1.HealthServiceServer = (*HealthServiceServer)(nil)
-
-type HealthServiceServer struct{}
-
-func (s *HealthServiceServer) Check(ctx context.Context, req *healthv1.CheckRequest) (*healthv1.CheckResponse, error) {
-	return &healthv1.CheckResponse{
-		Status: healthv1.ServingStatus_SERVING_STATUS_OK,
-	}, nil
-}
-
-func (s *HealthServiceServer) Watch(req *healthv1.WatchRequest, client healthv1.HealthService_WatchServer) error {
-	if err := client.Send(&healthv1.WatchResponse{
-		Status: healthv1.ServingStatus_SERVING_STATUS_OK,
-	}); err != nil {
-		return err
-	}
-	return nil
 }
