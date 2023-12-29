@@ -22,13 +22,17 @@ $(BIN_PATH)/buf-$(BUF_VERSION):
 	ln -s $(BIN_PATH)/buf-$(BUF_VERSION) $(BIN_PATH)/buf
 
 
-.PHONY: init-proto
-init-proto: $(BIN_PATH)/buf-$(BUF_VERSION)
+.PHONY: init-buf
+init-buf: $(BIN_PATH)/buf-$(BUF_VERSION)
 	$(BIN_PATH)/buf mod init -o $(PROTO_PATH)
 
-.PHONY: build-proto
-build-proto: $(BIN_PATH)/buf-$(BUF_VERSION)
+.PHONY: build-buf
+build-buf: $(BIN_PATH)/buf-$(BUF_VERSION)
 	$(BIN_PATH)/buf build --path $(PROTO_PATH)
+
+.PHONY: update-buf
+update-buf: $(BIN_PATH)/buf-$(BUF_VERSION)
+	$(BIN_PATH)/buf mod update $(PROTO_PATH)
 
 .PHONY: generate-proto
 generate-proto: $(BIN_PATH)/buf-$(BUF_VERSION) format-proto lint-proto
