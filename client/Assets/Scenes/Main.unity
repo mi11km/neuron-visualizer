@@ -320,7 +320,7 @@ GameObject:
   - component: {fileID: 1446270404}
   - component: {fileID: 1446270403}
   m_Layer: 0
-  m_Name: NeuronGenerator
+  m_Name: Neuron
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
