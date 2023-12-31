@@ -59,6 +59,7 @@ namespace Domain
             var response = neuronServiceClient.GetMembranePotentials(
                 new GetMembranePotentialsRequest() { NeuronName = name });
 
+            // TODO: キャンセル処理ちゃんと実装する
             while (response.ResponseStream.MoveNext(cancellationToken.Token).Result)
             {
                 yield return response.ResponseStream.Current;
