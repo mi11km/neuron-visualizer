@@ -30,31 +30,39 @@ namespace Neuron.V1 {
             "U2hhcGVSZXF1ZXN0Eh8KC25ldXJvbl9uYW1lGAEgASgJUgpuZXVyb25OYW1l",
             "ImcKFkdldE5ldXJvblNoYXBlUmVzcG9uc2USTQoTbmV1cm9uX2NvbXBhcnRt",
             "ZW50cxgBIAMoCzIcLm5ldXJvbi52MS5OZXVyb25Db21wYXJ0bWVudFISbmV1",
-            "cm9uQ29tcGFydG1lbnRzIusBChFOZXVyb25Db21wYXJ0bWVudBIOCgJpZBgB",
-            "IAEoA1ICaWQSNAoEdHlwZRgCIAEoDjIgLm5ldXJvbi52MS5OZXVyb25Db21w",
-            "YXJ0bWVudFR5cGVSBHR5cGUSHQoKcG9zaXRpb25feBgDIAEoAlIJcG9zaXRp",
-            "b25YEh0KCnBvc2l0aW9uX3kYBCABKAJSCXBvc2l0aW9uWRIdCgpwb3NpdGlv",
-            "bl96GAUgASgCUglwb3NpdGlvbloSFgoGcmFkaXVzGAYgASgCUgZyYWRpdXMS",
-            "GwoJcGFyZW50X2lkGAcgASgDUghwYXJlbnRJZCrdAQoVTmV1cm9uQ29tcGFy",
-            "dG1lbnRUeXBlEicKI05FVVJPTl9DT01QQVJUTUVOVF9UWVBFX1VOU1BFQ0lG",
-            "SUVEEAASIAocTkVVUk9OX0NPTVBBUlRNRU5UX1RZUEVfU09NQRABEiAKHE5F",
-            "VVJPTl9DT01QQVJUTUVOVF9UWVBFX0FYT04QAhIqCiZORVVST05fQ09NUEFS",
-            "VE1FTlRfVFlQRV9CQVNBTF9ERU5EUklURRADEisKJ05FVVJPTl9DT01QQVJU",
-            "TUVOVF9UWVBFX0FQSUNBTF9ERU5EUklURRAEMq0BCg1OZXVyb25TZXJ2aWNl",
-            "EkUKC0xpc3ROZXVyb25zEhYuZ29vZ2xlLnByb3RvYnVmLkVtcHR5Gh4ubmV1",
-            "cm9uLnYxLkxpc3ROZXVyb25zUmVzcG9uc2USVQoOR2V0TmV1cm9uU2hhcGUS",
-            "IC5uZXVyb24udjEuR2V0TmV1cm9uU2hhcGVSZXF1ZXN0GiEubmV1cm9uLnYx",
-            "LkdldE5ldXJvblNoYXBlUmVzcG9uc2VCpgEKDWNvbS5uZXVyb24udjFCC05l",
-            "dXJvblByb3RvUAFaQ2dpdGh1Yi5jb20vbWkxMWttL25ldXJvbi12aXN1YWxp",
-            "emVyL3NlcnZlci9wcm90by9uZXVyb24vdjE7bmV1cm9udjGiAgNOWFiqAglO",
-            "ZXVyb24uVjHKAglOZXVyb25cVjHiAhVOZXVyb25cVjFcR1BCTWV0YWRhdGHq",
-            "AgpOZXVyb246OlYxYgZwcm90bzM="));
+            "cm9uQ29tcGFydG1lbnRzIj8KHEdldE1lbWJyYW5lUG90ZW50aWFsc1JlcXVl",
+            "c3QSHwoLbmV1cm9uX25hbWUYASABKAlSCm5ldXJvbk5hbWUibQodR2V0TWVt",
+            "YnJhbmVQb3RlbnRpYWxzUmVzcG9uc2USGwoJdGltZV9zdGVwGAEgASgCUgh0",
+            "aW1lU3RlcBIvChNtZW1icmFuZV9wb3RlbnRpYWxzGAIgAygCUhJtZW1icmFu",
+            "ZVBvdGVudGlhbHMi6wEKEU5ldXJvbkNvbXBhcnRtZW50Eg4KAmlkGAEgASgD",
+            "UgJpZBI0CgR0eXBlGAIgASgOMiAubmV1cm9uLnYxLk5ldXJvbkNvbXBhcnRt",
+            "ZW50VHlwZVIEdHlwZRIdCgpwb3NpdGlvbl94GAMgASgCUglwb3NpdGlvblgS",
+            "HQoKcG9zaXRpb25feRgEIAEoAlIJcG9zaXRpb25ZEh0KCnBvc2l0aW9uX3oY",
+            "BSABKAJSCXBvc2l0aW9uWhIWCgZyYWRpdXMYBiABKAJSBnJhZGl1cxIbCglw",
+            "YXJlbnRfaWQYByABKANSCHBhcmVudElkKt0BChVOZXVyb25Db21wYXJ0bWVu",
+            "dFR5cGUSJwojTkVVUk9OX0NPTVBBUlRNRU5UX1RZUEVfVU5TUEVDSUZJRUQQ",
+            "ABIgChxORVVST05fQ09NUEFSVE1FTlRfVFlQRV9TT01BEAESIAocTkVVUk9O",
+            "X0NPTVBBUlRNRU5UX1RZUEVfQVhPThACEioKJk5FVVJPTl9DT01QQVJUTUVO",
+            "VF9UWVBFX0JBU0FMX0RFTkRSSVRFEAMSKwonTkVVUk9OX0NPTVBBUlRNRU5U",
+            "X1RZUEVfQVBJQ0FMX0RFTkRSSVRFEAQymwIKDU5ldXJvblNlcnZpY2USRQoL",
+            "TGlzdE5ldXJvbnMSFi5nb29nbGUucHJvdG9idWYuRW1wdHkaHi5uZXVyb24u",
+            "djEuTGlzdE5ldXJvbnNSZXNwb25zZRJVCg5HZXROZXVyb25TaGFwZRIgLm5l",
+            "dXJvbi52MS5HZXROZXVyb25TaGFwZVJlcXVlc3QaIS5uZXVyb24udjEuR2V0",
+            "TmV1cm9uU2hhcGVSZXNwb25zZRJsChVHZXRNZW1icmFuZVBvdGVudGlhbHMS",
+            "Jy5uZXVyb24udjEuR2V0TWVtYnJhbmVQb3RlbnRpYWxzUmVxdWVzdBooLm5l",
+            "dXJvbi52MS5HZXRNZW1icmFuZVBvdGVudGlhbHNSZXNwb25zZTABQqYBCg1j",
+            "b20ubmV1cm9uLnYxQgtOZXVyb25Qcm90b1ABWkNnaXRodWIuY29tL21pMTFr",
+            "bS9uZXVyb24tdmlzdWFsaXplci9zZXJ2ZXIvcHJvdG8vbmV1cm9uL3YxO25l",
+            "dXJvbnYxogIDTlhYqgIJTmV1cm9uLlYxygIJTmV1cm9uXFYx4gIVTmV1cm9u",
+            "XFYxXEdQQk1ldGFkYXRh6gIKTmV1cm9uOjpWMWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Google.Protobuf.WellKnownTypes.EmptyReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Neuron.V1.NeuronCompartmentType), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Neuron.V1.ListNeuronsResponse), global::Neuron.V1.ListNeuronsResponse.Parser, new[]{ "NeuronNames" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Neuron.V1.GetNeuronShapeRequest), global::Neuron.V1.GetNeuronShapeRequest.Parser, new[]{ "NeuronName" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Neuron.V1.GetNeuronShapeResponse), global::Neuron.V1.GetNeuronShapeResponse.Parser, new[]{ "NeuronCompartments" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Neuron.V1.GetMembranePotentialsRequest), global::Neuron.V1.GetMembranePotentialsRequest.Parser, new[]{ "NeuronName" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Neuron.V1.GetMembranePotentialsResponse), global::Neuron.V1.GetMembranePotentialsResponse.Parser, new[]{ "TimeStep", "MembranePotentials" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Neuron.V1.NeuronCompartment), global::Neuron.V1.NeuronCompartment.Parser, new[]{ "Id", "Type", "PositionX", "PositionY", "PositionZ", "Radius", "ParentId" }, null, null, null, null)
           }));
     }
@@ -646,6 +654,423 @@ namespace Neuron.V1 {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+  public sealed partial class GetMembranePotentialsRequest : pb::IMessage<GetMembranePotentialsRequest>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<GetMembranePotentialsRequest> _parser = new pb::MessageParser<GetMembranePotentialsRequest>(() => new GetMembranePotentialsRequest());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<GetMembranePotentialsRequest> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Neuron.V1.NeuronReflection.Descriptor.MessageTypes[3]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public GetMembranePotentialsRequest() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public GetMembranePotentialsRequest(GetMembranePotentialsRequest other) : this() {
+      neuronName_ = other.neuronName_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public GetMembranePotentialsRequest Clone() {
+      return new GetMembranePotentialsRequest(this);
+    }
+
+    /// <summary>Field number for the "neuron_name" field.</summary>
+    public const int NeuronNameFieldNumber = 1;
+    private string neuronName_ = "";
+    /// <summary>
+    /// 各コンパートメントの膜電位を取得したいニューロンの名前
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string NeuronName {
+      get { return neuronName_; }
+      set {
+        neuronName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as GetMembranePotentialsRequest);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(GetMembranePotentialsRequest other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (NeuronName != other.NeuronName) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (NeuronName.Length != 0) hash ^= NeuronName.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (NeuronName.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(NeuronName);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (NeuronName.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(NeuronName);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (NeuronName.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(NeuronName);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(GetMembranePotentialsRequest other) {
+      if (other == null) {
+        return;
+      }
+      if (other.NeuronName.Length != 0) {
+        NeuronName = other.NeuronName;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            NeuronName = input.ReadString();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            NeuronName = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+  public sealed partial class GetMembranePotentialsResponse : pb::IMessage<GetMembranePotentialsResponse>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<GetMembranePotentialsResponse> _parser = new pb::MessageParser<GetMembranePotentialsResponse>(() => new GetMembranePotentialsResponse());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<GetMembranePotentialsResponse> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Neuron.V1.NeuronReflection.Descriptor.MessageTypes[4]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public GetMembranePotentialsResponse() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public GetMembranePotentialsResponse(GetMembranePotentialsResponse other) : this() {
+      timeStep_ = other.timeStep_;
+      membranePotentials_ = other.membranePotentials_.Clone();
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public GetMembranePotentialsResponse Clone() {
+      return new GetMembranePotentialsResponse(this);
+    }
+
+    /// <summary>Field number for the "time_step" field.</summary>
+    public const int TimeStepFieldNumber = 1;
+    private float timeStep_;
+    /// <summary>
+    /// 時間ステップ
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public float TimeStep {
+      get { return timeStep_; }
+      set {
+        timeStep_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "membrane_potentials" field.</summary>
+    public const int MembranePotentialsFieldNumber = 2;
+    private static readonly pb::FieldCodec<float> _repeated_membranePotentials_codec
+        = pb::FieldCodec.ForFloat(18);
+    private readonly pbc::RepeatedField<float> membranePotentials_ = new pbc::RepeatedField<float>();
+    /// <summary>
+    /// 各コンパートメントの膜電位
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pbc::RepeatedField<float> MembranePotentials {
+      get { return membranePotentials_; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as GetMembranePotentialsResponse);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(GetMembranePotentialsResponse other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(TimeStep, other.TimeStep)) return false;
+      if(!membranePotentials_.Equals(other.membranePotentials_)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (TimeStep != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(TimeStep);
+      hash ^= membranePotentials_.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (TimeStep != 0F) {
+        output.WriteRawTag(13);
+        output.WriteFloat(TimeStep);
+      }
+      membranePotentials_.WriteTo(output, _repeated_membranePotentials_codec);
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (TimeStep != 0F) {
+        output.WriteRawTag(13);
+        output.WriteFloat(TimeStep);
+      }
+      membranePotentials_.WriteTo(ref output, _repeated_membranePotentials_codec);
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (TimeStep != 0F) {
+        size += 1 + 4;
+      }
+      size += membranePotentials_.CalculateSize(_repeated_membranePotentials_codec);
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(GetMembranePotentialsResponse other) {
+      if (other == null) {
+        return;
+      }
+      if (other.TimeStep != 0F) {
+        TimeStep = other.TimeStep;
+      }
+      membranePotentials_.Add(other.membranePotentials_);
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 13: {
+            TimeStep = input.ReadFloat();
+            break;
+          }
+          case 18:
+          case 21: {
+            membranePotentials_.AddEntriesFrom(input, _repeated_membranePotentials_codec);
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 13: {
+            TimeStep = input.ReadFloat();
+            break;
+          }
+          case 18:
+          case 21: {
+            membranePotentials_.AddEntriesFrom(ref input, _repeated_membranePotentials_codec);
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class NeuronCompartment : pb::IMessage<NeuronCompartment>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -660,7 +1085,7 @@ namespace Neuron.V1 {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Neuron.V1.NeuronReflection.Descriptor.MessageTypes[3]; }
+      get { return global::Neuron.V1.NeuronReflection.Descriptor.MessageTypes[5]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

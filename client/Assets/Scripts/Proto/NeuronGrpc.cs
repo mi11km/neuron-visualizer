@@ -53,6 +53,10 @@ namespace Neuron.V1 {
     static readonly grpc::Marshaller<global::Neuron.V1.GetNeuronShapeRequest> __Marshaller_neuron_v1_GetNeuronShapeRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Neuron.V1.GetNeuronShapeRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::Neuron.V1.GetNeuronShapeResponse> __Marshaller_neuron_v1_GetNeuronShapeResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Neuron.V1.GetNeuronShapeResponse.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::Neuron.V1.GetMembranePotentialsRequest> __Marshaller_neuron_v1_GetMembranePotentialsRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Neuron.V1.GetMembranePotentialsRequest.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::Neuron.V1.GetMembranePotentialsResponse> __Marshaller_neuron_v1_GetMembranePotentialsResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Neuron.V1.GetMembranePotentialsResponse.Parser));
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::Google.Protobuf.WellKnownTypes.Empty, global::Neuron.V1.ListNeuronsResponse> __Method_ListNeurons = new grpc::Method<global::Google.Protobuf.WellKnownTypes.Empty, global::Neuron.V1.ListNeuronsResponse>(
@@ -69,6 +73,14 @@ namespace Neuron.V1 {
         "GetNeuronShape",
         __Marshaller_neuron_v1_GetNeuronShapeRequest,
         __Marshaller_neuron_v1_GetNeuronShapeResponse);
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::Neuron.V1.GetMembranePotentialsRequest, global::Neuron.V1.GetMembranePotentialsResponse> __Method_GetMembranePotentials = new grpc::Method<global::Neuron.V1.GetMembranePotentialsRequest, global::Neuron.V1.GetMembranePotentialsResponse>(
+        grpc::MethodType.ServerStreaming,
+        __ServiceName,
+        "GetMembranePotentials",
+        __Marshaller_neuron_v1_GetMembranePotentialsRequest,
+        __Marshaller_neuron_v1_GetMembranePotentialsResponse);
 
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -100,6 +112,19 @@ namespace Neuron.V1 {
       /// <returns>The response to send back to the client (wrapped by a task).</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       public virtual global::System.Threading.Tasks.Task<global::Neuron.V1.GetNeuronShapeResponse> GetNeuronShape(global::Neuron.V1.GetNeuronShapeRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
+      /// <summary>
+      /// ニューロンの各コンパートメントの膜電位を得る
+      /// </summary>
+      /// <param name="request">The request received from the client.</param>
+      /// <param name="responseStream">Used for sending responses back to the client.</param>
+      /// <param name="context">The context of the server-side call handler being invoked.</param>
+      /// <returns>A task indicating completion of the handler.</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::System.Threading.Tasks.Task GetMembranePotentials(global::Neuron.V1.GetMembranePotentialsRequest request, grpc::IServerStreamWriter<global::Neuron.V1.GetMembranePotentialsResponse> responseStream, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -229,6 +254,30 @@ namespace Neuron.V1 {
       {
         return CallInvoker.AsyncUnaryCall(__Method_GetNeuronShape, null, options, request);
       }
+      /// <summary>
+      /// ニューロンの各コンパートメントの膜電位を得る
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
+      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
+      /// <param name="cancellationToken">An optional token for canceling the call.</param>
+      /// <returns>The call object.</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncServerStreamingCall<global::Neuron.V1.GetMembranePotentialsResponse> GetMembranePotentials(global::Neuron.V1.GetMembranePotentialsRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return GetMembranePotentials(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      /// <summary>
+      /// ニューロンの各コンパートメントの膜電位を得る
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="options">The options for the call.</param>
+      /// <returns>The call object.</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncServerStreamingCall<global::Neuron.V1.GetMembranePotentialsResponse> GetMembranePotentials(global::Neuron.V1.GetMembranePotentialsRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncServerStreamingCall(__Method_GetMembranePotentials, null, options, request);
+      }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       protected override NeuronServiceClient NewInstance(ClientBaseConfiguration configuration)
@@ -244,7 +293,8 @@ namespace Neuron.V1 {
     {
       return grpc::ServerServiceDefinition.CreateBuilder()
           .AddMethod(__Method_ListNeurons, serviceImpl.ListNeurons)
-          .AddMethod(__Method_GetNeuronShape, serviceImpl.GetNeuronShape).Build();
+          .AddMethod(__Method_GetNeuronShape, serviceImpl.GetNeuronShape)
+          .AddMethod(__Method_GetMembranePotentials, serviceImpl.GetMembranePotentials).Build();
     }
 
     /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the service binding logic.
@@ -256,6 +306,7 @@ namespace Neuron.V1 {
     {
       serviceBinder.AddMethod(__Method_ListNeurons, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Google.Protobuf.WellKnownTypes.Empty, global::Neuron.V1.ListNeuronsResponse>(serviceImpl.ListNeurons));
       serviceBinder.AddMethod(__Method_GetNeuronShape, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Neuron.V1.GetNeuronShapeRequest, global::Neuron.V1.GetNeuronShapeResponse>(serviceImpl.GetNeuronShape));
+      serviceBinder.AddMethod(__Method_GetMembranePotentials, serviceImpl == null ? null : new grpc::ServerStreamingServerMethod<global::Neuron.V1.GetMembranePotentialsRequest, global::Neuron.V1.GetMembranePotentialsResponse>(serviceImpl.GetMembranePotentials));
     }
 
   }
