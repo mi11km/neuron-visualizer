@@ -1,6 +1,9 @@
 using Cysharp.Net.Http;
 using Grpc.Net.Client;
 using Neuron.V1;
+using System.Collections.Generic;
+using System.Threading;
+
 
 namespace Domain
 {
@@ -41,6 +44,25 @@ namespace Domain
             }
 
             return neuron;
+        }
+
+        public IEnumerable<GetMembranePotentialsResponse> GetMembranePotentials(string name)
+        {
+            // Initialize gRPC client
+            using var httpHandler = new YetAnotherHttpHandler()
+                { SkipCertificateVerification = true, Http2Only = true };
+            using var channel =
+                GrpcChannel.ForAddress(Endpoint, new GrpcChannelOptions() { HttpHandler = httpHandler });
+            var cancellationToken = new CancellationTokenSource();
+
+            var neuronServiceClient = new NeuronService.NeuronServiceClient(channel);
+            var response = neuronServiceClient.GetMembranePotentials(
+                new GetMembranePotentialsRequest() { NeuronName = name });
+
+            while (response.ResponseStream.MoveNext(cancellationToken.Token).Result)
+            {
+                yield return response.ResponseStream.Current;
+            }
         }
     }
 }

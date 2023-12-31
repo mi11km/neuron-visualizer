@@ -20,8 +20,9 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	NeuronService_ListNeurons_FullMethodName    = "/neuron.v1.NeuronService/ListNeurons"
-	NeuronService_GetNeuronShape_FullMethodName = "/neuron.v1.NeuronService/GetNeuronShape"
+	NeuronService_ListNeurons_FullMethodName           = "/neuron.v1.NeuronService/ListNeurons"
+	NeuronService_GetNeuronShape_FullMethodName        = "/neuron.v1.NeuronService/GetNeuronShape"
+	NeuronService_GetMembranePotentials_FullMethodName = "/neuron.v1.NeuronService/GetMembranePotentials"
 )
 
 // NeuronServiceClient is the client API for NeuronService service.
@@ -32,6 +33,8 @@ type NeuronServiceClient interface {
 	ListNeurons(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*ListNeuronsResponse, error)
 	// ニューロンの形状・空間情報を取得する
 	GetNeuronShape(ctx context.Context, in *GetNeuronShapeRequest, opts ...grpc.CallOption) (*GetNeuronShapeResponse, error)
+	// ニューロンの各コンパートメントの膜電位を得る
+	GetMembranePotentials(ctx context.Context, in *GetMembranePotentialsRequest, opts ...grpc.CallOption) (NeuronService_GetMembranePotentialsClient, error)
 }
 
 type neuronServiceClient struct {
@@ -60,6 +63,38 @@ func (c *neuronServiceClient) GetNeuronShape(ctx context.Context, in *GetNeuronS
 	return out, nil
 }
 
+func (c *neuronServiceClient) GetMembranePotentials(ctx context.Context, in *GetMembranePotentialsRequest, opts ...grpc.CallOption) (NeuronService_GetMembranePotentialsClient, error) {
+	stream, err := c.cc.NewStream(ctx, &NeuronService_ServiceDesc.Streams[0], NeuronService_GetMembranePotentials_FullMethodName, opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &neuronServiceGetMembranePotentialsClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type NeuronService_GetMembranePotentialsClient interface {
+	Recv() (*GetMembranePotentialsResponse, error)
+	grpc.ClientStream
+}
+
+type neuronServiceGetMembranePotentialsClient struct {
+	grpc.ClientStream
+}
+
+func (x *neuronServiceGetMembranePotentialsClient) Recv() (*GetMembranePotentialsResponse, error) {
+	m := new(GetMembranePotentialsResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 // NeuronServiceServer is the server API for NeuronService service.
 // All implementations should embed UnimplementedNeuronServiceServer
 // for forward compatibility
@@ -68,6 +103,8 @@ type NeuronServiceServer interface {
 	ListNeurons(context.Context, *emptypb.Empty) (*ListNeuronsResponse, error)
 	// ニューロンの形状・空間情報を取得する
 	GetNeuronShape(context.Context, *GetNeuronShapeRequest) (*GetNeuronShapeResponse, error)
+	// ニューロンの各コンパートメントの膜電位を得る
+	GetMembranePotentials(*GetMembranePotentialsRequest, NeuronService_GetMembranePotentialsServer) error
 }
 
 // UnimplementedNeuronServiceServer should be embedded to have forward compatible implementations.
@@ -79,6 +116,9 @@ func (UnimplementedNeuronServiceServer) ListNeurons(context.Context, *emptypb.Em
 }
 func (UnimplementedNeuronServiceServer) GetNeuronShape(context.Context, *GetNeuronShapeRequest) (*GetNeuronShapeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetNeuronShape not implemented")
+}
+func (UnimplementedNeuronServiceServer) GetMembranePotentials(*GetMembranePotentialsRequest, NeuronService_GetMembranePotentialsServer) error {
+	return status.Errorf(codes.Unimplemented, "method GetMembranePotentials not implemented")
 }
 
 // UnsafeNeuronServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -128,6 +168,27 @@ func _NeuronService_GetNeuronShape_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _NeuronService_GetMembranePotentials_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(GetMembranePotentialsRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(NeuronServiceServer).GetMembranePotentials(m, &neuronServiceGetMembranePotentialsServer{stream})
+}
+
+type NeuronService_GetMembranePotentialsServer interface {
+	Send(*GetMembranePotentialsResponse) error
+	grpc.ServerStream
+}
+
+type neuronServiceGetMembranePotentialsServer struct {
+	grpc.ServerStream
+}
+
+func (x *neuronServiceGetMembranePotentialsServer) Send(m *GetMembranePotentialsResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
 // NeuronService_ServiceDesc is the grpc.ServiceDesc for NeuronService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -144,6 +205,12 @@ var NeuronService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _NeuronService_GetNeuronShape_Handler,
 		},
 	},
-	Streams:  []grpc.StreamDesc{},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "GetMembranePotentials",
+			Handler:       _NeuronService_GetMembranePotentials_Handler,
+			ServerStreams: true,
+		},
+	},
 	Metadata: "neuron/v1/neuron.proto",
 }

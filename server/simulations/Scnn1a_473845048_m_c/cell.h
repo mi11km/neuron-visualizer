@@ -53,3 +53,5 @@ void cell_set_current(cell_t *, const double);
 void cell_update_ion(cell_t *);
 
 void cell_output_file(cell_t *, const double);
+
+void cell_output_stdout(cell_t *, const double);

@@ -19,11 +19,25 @@ message GetNeuronShapeResponse {
   repeated NeuronCompartment neuron_compartments = 1;
 }
 
+message GetMembranePotentialsRequest {
+  // 各コンパートメントの膜電位を取得したいニューロンの名前
+  string neuron_name = 1;
+}
+
+message GetMembranePotentialsResponse {
+  // 時間ステップ
+  float time_step = 1;
+  // 各コンパートメントの膜電位
+  repeated float membrane_potentials = 2;
+}
+
 service NeuronService {
   // 利用可能なニューロン名の一覧を取得する
   rpc ListNeurons(google.protobuf.Empty) returns (ListNeuronsResponse);
   // ニューロンの形状・空間情報を取得する
   rpc GetNeuronShape(GetNeuronShapeRequest) returns (GetNeuronShapeResponse);
+  // ニューロンの各コンパートメントの膜電位を得る
+  rpc GetMembranePotentials(GetMembranePotentialsRequest) returns (stream GetMembranePotentialsResponse);
 }
 
 message NeuronCompartment {

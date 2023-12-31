@@ -121,7 +121,6 @@ cell_t *cell_initialize(void) {
     cell->rad = (double *) malloc(N_COMP * sizeof(double));
     cell->len = (double *) malloc(N_COMP * sizeof(double));
     cell->Ra = (double *) malloc(N_COMP * sizeof(double));
-    cell->outfile = fopen("output.csv", "w");
 
     read_swc_file(cell);
     read_ion_file(cell);
@@ -141,7 +140,6 @@ void cell_finalize(cell_t *cell) {
     free(cell->rad);
     free(cell->len);
     free(cell->Ra);
-    fclose(cell->outfile);
     free(cell);
 }
 
@@ -154,3 +152,11 @@ void cell_output_file(cell_t *cell, const double t) {
 }
 
 void cell_update_ion(cell_t *cell) { ion_update(cell); }
+
+void cell_output_stdout(cell_t *cell, const double t) {
+    printf("%lf", t);
+    for (int i = 0; i < N_COMP; ++i) {
+        printf(",%lf", cell->elem[V][i]);
+    }
+    printf("\n");
+}

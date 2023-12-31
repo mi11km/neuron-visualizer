@@ -1,9 +1,13 @@
 package interfaces
 
 import (
+	"bufio"
 	"context"
 	"fmt"
+	"io"
+	"log/slog"
 	"os"
+	"os/exec"
 	"path"
 	"regexp"
 	"strconv"
@@ -17,13 +21,8 @@ import (
 
 var _ neuronv1.NeuronServiceServer = (*NeuronServiceServer)(nil)
 
-type NeuronServiceServer struct {
-	neuronSimulationPath string
-	swcLineRegex         *regexp.Regexp
-}
-
 func NewNeuronServiceServer(neuronSimulationDir string) (*NeuronServiceServer, error) {
-	currentDir, err := os.Getwd()
+	rootPath, err := os.Getwd()
 	if err != nil {
 		return nil, err
 	}
@@ -32,9 +31,88 @@ func NewNeuronServiceServer(neuronSimulationDir string) (*NeuronServiceServer, e
 		return nil, err
 	}
 	return &NeuronServiceServer{
-		neuronSimulationPath: path.Join(currentDir, neuronSimulationDir),
+		rootPath:             rootPath,
+		neuronSimulationPath: path.Join(rootPath, neuronSimulationDir),
 		swcLineRegex:         swcLineRegex,
 	}, nil
+}
+
+type NeuronServiceServer struct {
+	rootPath             string
+	neuronSimulationPath string
+	swcLineRegex         *regexp.Regexp
+}
+
+func (n *NeuronServiceServer) GetMembranePotentials(request *neuronv1.GetMembranePotentialsRequest, server neuronv1.NeuronService_GetMembranePotentialsServer) error {
+	// 一時的にシミュレーションの実行ディレクトリに移動する
+	// <root>/simulations/<neuron_name>/
+	simulationRootPath := path.Join(n.neuronSimulationPath, request.NeuronName)
+	if err := os.Chdir(simulationRootPath); err != nil {
+		return fmt.Errorf("os.Chdir: %w", err)
+	}
+	defer func() {
+		if err := os.Chdir(n.rootPath); err != nil {
+			slog.Error("os.Chdir: ", slog.Any("error", err))
+		}
+	}()
+	// シミュレーションの実行ファイルのパスはデフォルトで以下のようになっている
+	// <root>/simulations/<neuron_name>/main
+	simulationBinPath := path.Join(simulationRootPath, "main")
+	if _, err := os.Stat(simulationBinPath); err != nil {
+		return fmt.Errorf("os.Stat: %w", err)
+	}
+
+	cmd := exec.CommandContext(server.Context(), simulationBinPath)
+	stdout, err := cmd.StdoutPipe()
+	if err != nil {
+		return fmt.Errorf("cmd.StdoutPipe: %w", err)
+	}
+	stderr, err := cmd.StderrPipe()
+	if err != nil {
+		return fmt.Errorf("cmd.StderrPipe: %w", err)
+	}
+	if err := cmd.Start(); err != nil {
+		return fmt.Errorf("cmd.Start: %w", err)
+	}
+
+	scanner := bufio.NewScanner(stdout)
+	for scanner.Scan() {
+		// シミュレーションの出力は以下のような形式になっている
+		// <time_step>,<membrane_potential_1>,<membrane_potential_2>,...
+		words := strings.Split(scanner.Text(), ",")
+		timeStep, err := strconv.ParseFloat(words[0], 32)
+		if err != nil {
+			return fmt.Errorf("strconv.ParseFloat: %w", err)
+		}
+		membranePotentials := make([]float32, 0, len(words)-1)
+		for _, potentialStr := range words[1:] {
+			membranePotential, err := strconv.ParseFloat(potentialStr, 32)
+			if err != nil {
+				return fmt.Errorf("strconv.ParseFloat: %w", err)
+			}
+			membranePotentials = append(membranePotentials, float32(membranePotential))
+		}
+
+		if err = server.Send(&neuronv1.GetMembranePotentialsResponse{
+			TimeStep:           float32(timeStep),
+			MembranePotentials: membranePotentials,
+		}); err != nil {
+			return fmt.Errorf("server.Send: %w", err)
+		}
+	}
+	if err := scanner.Err(); err != nil {
+		return fmt.Errorf("scanner.Err: %w", err)
+	}
+
+	stderrBytes, err := io.ReadAll(stderr)
+	if err != nil {
+		return fmt.Errorf("io.ReadAll: %w", err)
+	}
+	if err := cmd.Wait(); err != nil {
+		return fmt.Errorf("cmd.Wait: %w, %s", err, string(stderrBytes))
+	}
+
+	return nil
 }
 
 func (n *NeuronServiceServer) ListNeurons(ctx context.Context, empty *emptypb.Empty) (*neuronv1.ListNeuronsResponse, error) {
@@ -54,8 +132,8 @@ func (n *NeuronServiceServer) ListNeurons(ctx context.Context, empty *emptypb.Em
 
 func (n *NeuronServiceServer) GetNeuronShape(ctx context.Context, request *neuronv1.GetNeuronShapeRequest) (*neuronv1.GetNeuronShapeResponse, error) {
 	// swcファイル(ニューロンのコンパートメント情報)を読み込む
-	// swcファイルのパスは以下のようになっている
-	// <binary_execute_dir>/simulations/<neuron_name>/<neuron_name>.swc
+	// swcファイルのパスはデフォルトで以下のようになっている
+	// <root>/simulations/<neuron_name>/<neuron_name>.swc
 	swcFilePath := path.Join(n.neuronSimulationPath, request.NeuronName, fmt.Sprintf("%s.swc", request.NeuronName))
 	swcFile, err := os.ReadFile(swcFilePath)
 	if err != nil {
@@ -126,5 +204,4 @@ func (n *NeuronServiceServer) GetNeuronShape(ctx context.Context, request *neuro
 	return &neuronv1.GetNeuronShapeResponse{
 		NeuronCompartments: neuronCompartments,
 	}, nil
-
 }
