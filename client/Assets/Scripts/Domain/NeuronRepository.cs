@@ -3,26 +3,21 @@ using Grpc.Net.Client;
 using Neuron.V1;
 using System.Collections.Generic;
 using System.Threading;
+using Unity.VisualScripting;
 
 
 namespace Domain
 {
     public class NeuronRepository
     {
-        const string Endpoint = "http://localhost:8080";
+        private const string Endpoint = "http://localhost:8080";
 
-        public NeuronRepository()
-        {
-        }
-
-        public Neuron GetNeuron(string name)
+        public static Neuron GetNeuron(string name)
         {
             // Initialize gRPC client
-            using var httpHandler = new YetAnotherHttpHandler()
-                { SkipCertificateVerification = true, Http2Only = true };
+            using var httpHandler = new YetAnotherHttpHandler { SkipCertificateVerification = true, Http2Only = true };
             using var channel =
-                GrpcChannel.ForAddress(Endpoint, new GrpcChannelOptions() { HttpHandler = httpHandler });
-
+                GrpcChannel.ForAddress(Endpoint, new GrpcChannelOptions { HttpHandler = httpHandler });
 
             var neuronServiceClient = new NeuronService.NeuronServiceClient(channel);
             var response = neuronServiceClient.GetNeuronShape(new GetNeuronShapeRequest()
@@ -46,7 +41,7 @@ namespace Domain
             return neuron;
         }
 
-        public IEnumerable<GetMembranePotentialsResponse> GetMembranePotentials(string name)
+        public static IEnumerable<GetMembranePotentialsResponse> GetMembranePotentials(string name)
         {
             // Initialize gRPC client
             using var httpHandler = new YetAnotherHttpHandler()
