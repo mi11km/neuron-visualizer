@@ -1,27 +1,27 @@
-using Cysharp.Net.Http;
-using Grpc.Net.Client;
-using Neuron.V1;
+using Grpc.Core;
 using System.Collections.Generic;
 using System.Threading;
-using Unity.VisualScripting;
+using Neuron.V1;
 
 
 namespace Domain
 {
     public class NeuronRepository
     {
-        private const string Endpoint = "http://localhost:8080";
+        private readonly string _endpoint;
+        private CancellationTokenSource _cancellationTokenSource;
 
-        public static Neuron GetNeuron(string name)
+        public NeuronRepository(string endpoint)
         {
-            // Initialize gRPC client
-            using var httpHandler = new YetAnotherHttpHandler { SkipCertificateVerification = true, Http2Only = true };
-            using var channel =
-                GrpcChannel.ForAddress(Endpoint, new GrpcChannelOptions { HttpHandler = httpHandler });
+            _endpoint = endpoint;
+        }
+
+        public Neuron GetNeuron(string name)
+        {
+            var channel = new Channel(_endpoint, ChannelCredentials.Insecure);
 
             var neuronServiceClient = new NeuronService.NeuronServiceClient(channel);
-            var response = neuronServiceClient.GetNeuronShape(new GetNeuronShapeRequest()
-                { NeuronName = name });
+            var response = neuronServiceClient.GetNeuronShape(new GetNeuronShapeRequest { NeuronName = name });
 
             var neuron = new Neuron();
 
@@ -41,24 +41,31 @@ namespace Domain
             return neuron;
         }
 
-        public static IEnumerable<GetMembranePotentialsResponse> GetMembranePotentials(string name)
+        public IEnumerable<GetMembranePotentialsResponse> GetMembranePotentials(string name)
         {
-            // Initialize gRPC client
-            using var httpHandler = new YetAnotherHttpHandler()
-                { SkipCertificateVerification = true, Http2Only = true };
-            using var channel =
-                GrpcChannel.ForAddress(Endpoint, new GrpcChannelOptions() { HttpHandler = httpHandler });
-            var cancellationToken = new CancellationTokenSource();
+            // 前回の処理があればキャンセルする
+            _cancellationTokenSource?.Cancel();
+            _cancellationTokenSource = new CancellationTokenSource();
+
+            var channel = new Channel(_endpoint, ChannelCredentials.Insecure);
 
             var neuronServiceClient = new NeuronService.NeuronServiceClient(channel);
             var response = neuronServiceClient.GetMembranePotentials(
-                new GetMembranePotentialsRequest() { NeuronName = name });
+                new GetMembranePotentialsRequest { NeuronName = name });
 
-            // TODO: キャンセル処理ちゃんと実装する
-            while (response.ResponseStream.MoveNext(cancellationToken.Token).Result)
+            while (response.ResponseStream.MoveNext(_cancellationTokenSource.Token).Result)
             {
                 yield return response.ResponseStream.Current;
             }
+            
+            _cancellationTokenSource.Dispose();
+            _cancellationTokenSource = null; 
+        }
+
+        public void CancelGetMembranePotentials()
+        {
+            _cancellationTokenSource?.Cancel();
+            _cancellationTokenSource = null;
         }
     }
 }
