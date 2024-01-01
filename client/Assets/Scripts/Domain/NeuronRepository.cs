@@ -57,6 +57,9 @@ namespace Domain
             {
                 yield return response.ResponseStream.Current;
             }
+            
+            _cancellationTokenSource.Dispose();
+            _cancellationTokenSource = null; 
         }
 
         public void CancelGetMembranePotentials()
