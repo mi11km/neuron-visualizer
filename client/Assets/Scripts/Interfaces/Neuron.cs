@@ -10,15 +10,18 @@ namespace Interfaces
     {
         [SerializeField] private GameObject compartmentPrefab; // 細胞体以外のニューロンのコンパートメントプレハブ
         [SerializeField] private GameObject somaPrefab; // 細胞体プレハブ
-
         [SerializeField] private Player player;
+        [SerializeField] private string endpoint;
 
         private readonly string _currentNeuronName = "Scnn1a_473845048_m_c";
+
+        private NeuronRepository _neuronRepository;
         private Domain.Neuron _currentNeuron;
         private Coroutine _neuronFiringCoroutine;
 
         private void Start()
         {
+            _neuronRepository = new NeuronRepository(endpoint);
             Generate();
 
             // プレイヤーを細胞体の前に配置する
@@ -36,7 +39,7 @@ namespace Interfaces
         // ニューロンをゲームオブジェクトとして生成する
         private void Generate()
         {
-            _currentNeuron = NeuronRepository.GetNeuron(_currentNeuronName);
+            _currentNeuron = _neuronRepository.GetNeuron(_currentNeuronName);
             foreach (var nc in _currentNeuron.Compartments.Values)
             {
                 var position = new Vector3(nc.PositionX, nc.PositionY, nc.PositionZ);
@@ -86,6 +89,9 @@ namespace Interfaces
         private void StopFiring()
         {
             StopCoroutine(_neuronFiringCoroutine);
+            _neuronRepository.CancelGetMembranePotentials();
+
+            // ニューロンを再生成する
             DestroyIfExist();
             Generate();
         }
@@ -97,7 +103,8 @@ namespace Interfaces
             const float maxMembranePotential = -30.0f - minMembranePotential;
             const float hsvColorMapMin = 0.5f;
             const float hsvColorMapMax = 1.0f;
-            foreach (var membranePotentials in NeuronRepository.GetMembranePotentials(_currentNeuronName))
+            var membranePotentialsIterator = _neuronRepository.GetMembranePotentials(_currentNeuronName);
+            foreach (var membranePotentials in membranePotentialsIterator)
             {
                 for (int i = 0; i < transform.childCount; i++)
                 {
