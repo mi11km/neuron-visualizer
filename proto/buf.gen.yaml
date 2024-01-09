@@ -9,13 +9,8 @@ plugins:
   - plugin: buf.build/protocolbuffers/go # Base types for Go. Generates message and enum types.
     out: ../server/proto
     opt: paths=source_relative
-  - plugin: buf.build/grpc/go # Generates Go client and server stubs for the gRPC framework.
+  - plugin: buf.build/connectrpc/go # Generates client and server stubs for connectrpc.com/connect.
     out: ../server/proto
     opt:
-     - paths=source_relative
-     - require_unimplemented_servers=false
-  # for Unity gRPC client
-  - plugin: buf.build/protocolbuffers/csharp
-    out: ../client/Assets/Scripts/Proto
-  - plugin: buf.build/grpc/csharp
-    out: ../client/Assets/Scripts/Proto
+      - paths=source_relative
+      - require_unimplemented_servers=false
