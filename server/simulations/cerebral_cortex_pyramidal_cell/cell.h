@@ -1,8 +1,8 @@
 #pragma once
 
 #define N_COMP ( 3682 )
-#define SWC_FILE "./Scnn1a_473845048_m_c.swc"
-#define ION_FILE "./Scnn1a_473845048_m_c_ion.txt"
+#define SWC_FILE "./cerebral_cortex_pyramidal_cell.swc"
+#define ION_FILE "./cerebral_cortex_pyramidal_cell_ion.txt"
 
 typedef enum {
     _DUMMY_, SOMA, AXON, BASAL, APICAL, N_COMPTYPE
