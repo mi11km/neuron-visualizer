@@ -374,7 +374,7 @@ MonoBehaviour:
   compartmentPrefab: {fileID: 6106130422647819070, guid: 81a97ee967704485cb7bbc65bd0a75ea, type: 3}
   somaPrefab: {fileID: 6759309947291780905, guid: 4146179f30ec84d9ea740ba8999b18d9, type: 3}
   player: {fileID: 2095198569}
-  endpoint: localhost:8080
+  endpoint: http://localhost:8080
 --- !u!4 &1446270404
 Transform:
   m_ObjectHideFlags: 0
