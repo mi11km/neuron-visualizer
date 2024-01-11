@@ -30,11 +30,39 @@ type GetNeuronCompartmentsMembranePotentialResponse struct {
 
 // GetNeuronCompartmentsResponse defines model for GetNeuronCompartmentsResponse.
 type GetNeuronCompartmentsResponse struct {
+	Compartments []NeuronCompartment `json:"compartments"`
+}
+
+// GetNeuronsResponse defines model for GetNeuronsResponse.
+type GetNeuronsResponse struct {
+	Neurons []Neuron `json:"neurons"`
+}
+
+// HealthCheckResponse defines model for HealthCheckResponse.
+type HealthCheckResponse struct {
+	// Message Message of the health check
+	Message string `json:"message"`
+
+	// Status Status of the health check
+	Status HealthCheckResponseStatus `json:"status"`
+}
+
+// HealthCheckResponseStatus Status of the health check
+type HealthCheckResponseStatus string
+
+// Neuron defines model for Neuron.
+type Neuron struct {
+	// Name Name of the neuron
+	Name NeuronName `json:"name"`
+}
+
+// NeuronCompartment defines model for NeuronCompartment.
+type NeuronCompartment struct {
 	// Id ID of the compartment, unique for the same neuron.
 	Id int64 `json:"id"`
 
-	// ParentID ID of the parent compartment. -1 indicates no parent compartment.
-	ParentID int64 `json:"parentID"`
+	// ParentId ID of the parent compartment. -1 indicates no parent compartment.
+	ParentId int64 `json:"parentId"`
 
 	// PositionX Coordinate for example x, y, z
 	PositionX Coordinate `json:"positionX"`
@@ -49,24 +77,6 @@ type GetNeuronCompartmentsResponse struct {
 	Radius float64               `json:"radius"`
 	Type   NeuronCompartmentType `json:"type"`
 }
-
-// GetNeuronsResponse defines model for GetNeuronsResponse.
-type GetNeuronsResponse struct {
-	// Name Name of the neuron
-	Name NeuronName `json:"name"`
-}
-
-// HealthCheckResponse defines model for HealthCheckResponse.
-type HealthCheckResponse struct {
-	// Message Message of the health check
-	Message string `json:"message"`
-
-	// Status Status of the health check
-	Status HealthCheckResponseStatus `json:"status"`
-}
-
-// HealthCheckResponseStatus Status of the health check
-type HealthCheckResponseStatus string
 
 // NeuronCompartmentType defines model for NeuronCompartmentType.
 type NeuronCompartmentType struct {

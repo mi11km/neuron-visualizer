@@ -43,9 +43,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/GetNeuronsResponse'
+                $ref: '#/components/schemas/GetNeuronsResponse'
   /api/v1/neurons/{neuron_name}/compartments:
     get:
       tags:
@@ -66,9 +64,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/GetNeuronCompartmentsResponse'
+                $ref: '#/components/schemas/GetNeuronCompartmentsResponse'
   /api/v1/neurons/{neuron_name}/compartments/membranePotentials:
     get:
       tags:
@@ -115,47 +111,21 @@ components:
     GetNeuronsResponse:
       type: object
       properties:
-        name:
-          $ref: '#/components/schemas/NeuronName'
+        neurons:
+          type: array
+          items:
+            $ref: '#/components/schemas/Neuron'
       required:
-        - name
+        - neurons
     GetNeuronCompartmentsResponse:
       type: object
       properties:
-        id:
-          type: integer
-          format: int64
-          minimum: 0
-          description: ID of the compartment, unique for the same neuron.
-          example: 0
-        type:
-          $ref: '#/components/schemas/NeuronCompartmentType'
-        positionX:
-          $ref: '#/components/schemas/Coordinate'
-        positionY:
-          $ref: '#/components/schemas/Coordinate'
-        positionZ:
-          $ref: '#/components/schemas/Coordinate'
-        radius:
-          type: number
-          format: double
-          minimum: 0
-          description: Radius of the compartment.
-          example: 5.4428
-        parentID:
-          type: integer
-          format: int64
-          minimum: -1
-          description: ID of the parent compartment. -1 indicates no parent compartment.
-          example: -1
+        compartments:
+          type: array
+          items:
+            $ref: '#/components/schemas/NeuronCompartment'
       required:
-        - id
-        - type
-        - positionX
-        - positionY
-        - positionZ
-        - radius
-        - parentID
+        - compartments
     GetNeuronCompartmentsMembranePotentialResponse:
       type: object
       properties:
@@ -178,6 +148,13 @@ components:
       type: string
       description: Name of the neuron
       example: cerebral_cortex_pyramidal_cell
+    Neuron:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/NeuronName'
+      required:
+        - name
     NeuronCompartmentType:
       type: object
       properties:
@@ -208,3 +185,40 @@ components:
       format: double
       description: Coordinate for example x, y, z
       example: 379.4648
+    NeuronCompartment:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          minimum: 0
+          description: ID of the compartment, unique for the same neuron.
+          example: 0
+        type:
+          $ref: '#/components/schemas/NeuronCompartmentType'
+        positionX:
+          $ref: '#/components/schemas/Coordinate'
+        positionY:
+          $ref: '#/components/schemas/Coordinate'
+        positionZ:
+          $ref: '#/components/schemas/Coordinate'
+        radius:
+          type: number
+          format: double
+          minimum: 0
+          description: Radius of the compartment.
+          example: 5.4428
+        parentId:
+          type: integer
+          format: int64
+          minimum: -1
+          description: ID of the parent compartment. -1 indicates no parent compartment.
+          example: -1
+      required:
+        - id
+        - type
+        - positionX
+        - positionY
+        - positionZ
+        - radius
+        - parentId

@@ -13,7 +13,7 @@ namespace Interfaces
         [SerializeField] private Player player;
         [SerializeField] private string endpoint;
 
-        private readonly string _currentNeuronName = "Scnn1a_473845048_m_c";
+        private readonly string _currentNeuronName = "cerebral_cortex_pyramidal_cell";
 
         private NeuronRepository _neuronRepository;
         private Domain.Neuron _currentNeuron;
@@ -31,9 +31,8 @@ namespace Interfaces
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Space)) DestroyIfExist();
             if (Input.GetKeyDown(KeyCode.F)) StartFiring();
-            if (Input.GetKeyDown(KeyCode.R)) StopFiring();
+            if (Input.GetKeyUp(KeyCode.S)) StopFiring();
         }
 
         // ニューロンをゲームオブジェクトとして生成する
@@ -88,8 +87,8 @@ namespace Interfaces
 
         private void StopFiring()
         {
-            StopCoroutine(_neuronFiringCoroutine);
             _neuronRepository.CancelGetMembranePotentials();
+            StopCoroutine(_neuronFiringCoroutine);
 
             // ニューロンを再生成する
             DestroyIfExist();
@@ -109,7 +108,7 @@ namespace Interfaces
                 for (int i = 0; i < transform.childCount; i++)
                 {
                     var compartment = transform.GetChild(i).gameObject;
-                    var membranePotential = membranePotentials.MembranePotentials[Int32.Parse(compartment.name)];
+                    var membranePotential = membranePotentials.membranePotentials[Int32.Parse(compartment.name)];
 
                     // 膜電位の値に応じた色を設定する
                     var colorBase =

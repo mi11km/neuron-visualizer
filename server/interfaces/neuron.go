@@ -46,7 +46,7 @@ type NeuronVisualizerServer struct {
 	compartmentTypeMap   map[int64]openapi.NeuronCompartmentTypeName
 }
 
-func (n *NeuronVisualizerServer) HealthCheck(w http.ResponseWriter, r *http.Request) {
+func (n *NeuronVisualizerServer) HealthCheck(w http.ResponseWriter, _ *http.Request) {
 	res, err := json.Marshal(
 		&openapi.HealthCheckResponse{
 			Status:  openapi.OK,
@@ -64,24 +64,24 @@ func (n *NeuronVisualizerServer) HealthCheck(w http.ResponseWriter, r *http.Requ
 	}
 }
 
-func (n *NeuronVisualizerServer) GetNeurons(w http.ResponseWriter, r *http.Request) {
+func (n *NeuronVisualizerServer) GetNeurons(w http.ResponseWriter, _ *http.Request) {
 	entries, err := os.ReadDir(n.neuronSimulationPath)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	neuronNames := make([]openapi.GetNeuronsResponse, 0, len(entries))
+	neurons := make([]openapi.Neuron, 0, len(entries))
 	for _, entry := range entries {
 		// フォルダ名がそのままニューロン名になる
 		if entry.IsDir() && entry.Name() != "" {
-			neuronNames = append(
-				neuronNames, openapi.GetNeuronsResponse{
+			neurons = append(
+				neurons, openapi.Neuron{
 					Name: entry.Name(),
 				},
 			)
 		}
 	}
-	res, err := json.Marshal(neuronNames)
+	res, err := json.Marshal(openapi.GetNeuronsResponse{Neurons: neurons})
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -94,7 +94,7 @@ func (n *NeuronVisualizerServer) GetNeurons(w http.ResponseWriter, r *http.Reque
 }
 
 func (n *NeuronVisualizerServer) GetNeuronCompartments(
-	w http.ResponseWriter, r *http.Request, neuronName openapi.NeuronName,
+	w http.ResponseWriter, _ *http.Request, neuronName openapi.NeuronName,
 ) {
 	// swcファイル(ニューロンのコンパートメント情報)を読み込む
 	// swcファイルのパスはデフォルトで以下のようになっている
@@ -108,7 +108,7 @@ func (n *NeuronVisualizerServer) GetNeuronCompartments(
 
 	// swcファイルの各行をパースしてニューロンのコンパートメント情報を取得する
 	lines := strings.Split(string(swcFile), "\n")
-	neuronCompartments := make([]openapi.GetNeuronCompartmentsResponse, 0, len(lines))
+	neuronCompartments := make([]openapi.NeuronCompartment, 0, len(lines))
 	for _, line := range lines {
 		// swcファイルの各行は以下のような形式になっている
 		// <compartment_id> <compartment_type> <x> <y> <z> <radius> <parent_compartment_id>
@@ -161,9 +161,9 @@ func (n *NeuronVisualizerServer) GetNeuronCompartments(
 		}
 
 		neuronCompartments = append(
-			neuronCompartments, openapi.GetNeuronCompartmentsResponse{
+			neuronCompartments, openapi.NeuronCompartment{
 				Id:        id,
-				ParentID:  parentId,
+				ParentId:  parentId,
 				PositionX: positionX,
 				PositionY: positionY,
 				PositionZ: positionZ,
@@ -176,7 +176,7 @@ func (n *NeuronVisualizerServer) GetNeuronCompartments(
 		)
 	}
 
-	res, err := json.Marshal(neuronCompartments)
+	res, err := json.Marshal(openapi.GetNeuronCompartmentsResponse{Compartments: neuronCompartments})
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -236,7 +236,11 @@ func (n *NeuronVisualizerServer) GetNeuronMembranePotentials(
 		return
 	}
 	cw := httputil.NewChunkedWriter(w)
-	defer cw.Close()
+	defer func() {
+		if err := cw.Close(); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+	}()
 
 	scanner := bufio.NewScanner(stdout)
 	for scanner.Scan() {
