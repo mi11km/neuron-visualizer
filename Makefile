@@ -4,8 +4,10 @@ GO ?= go
 GOOS := $(shell $(GO) env GOOS)
 GOARCH := $(shell $(GO) env GOARCH)
 
+DOCKER ?= docker
+
+ROOT_PATH := $(abspath .)
 BIN_PATH := $(abspath ./bin/$(GOOS)_$(GOARCH))
-PROTO_PATH := $(abspath ./proto)
 SERVER_PATH := $(abspath ./server)
 
 GO_ENV ?= CGO_ENABLED=0 GOBIN=$(BIN_PATH)
@@ -13,44 +15,23 @@ GO_ENV ?= CGO_ENABLED=0 GOBIN=$(BIN_PATH)
 
 $(shell mkdir -p $(BIN_PATH))
 
+OAPI_CODEGEN_VERSION := v2.0.0
+$(BIN_PATH)/oapi-codegen-$(OAPI_CODEGEN_VERSION):
+	unlink $(BIN_PATH)/oapi-codegen || true
+	$(GO_ENV) $(GO) install github.com/deepmap/oapi-codegen/v2/cmd/oapi-codegen@$(OAPI_CODEGEN_VERSION)
+	mv $(BIN_PATH)/oapi-codegen $(BIN_PATH)/oapi-codegen-$(OAPI_CODEGEN_VERSION)
+	ln -s $(BIN_PATH)/oapi-codegen-$(OAPI_CODEGEN_VERSION) $(BIN_PATH)/oapi-codegen
 
-BUF_VERSION := v1.28.1
-$(BIN_PATH)/buf-$(BUF_VERSION):
-	unlink $(BIN_PATH)/buf || true
-	$(GO_ENV) $(GO) install github.com/bufbuild/buf/cmd/buf@$(BUF_VERSION)
-	mv $(BIN_PATH)/buf $(BIN_PATH)/buf-$(BUF_VERSION)
-	ln -s $(BIN_PATH)/buf-$(BUF_VERSION) $(BIN_PATH)/buf
-
-
-.PHONY: init-buf
-init-buf: $(BIN_PATH)/buf-$(BUF_VERSION)
-	$(BIN_PATH)/buf mod init -o $(PROTO_PATH)
-
-.PHONY: build-buf
-build-buf: $(BIN_PATH)/buf-$(BUF_VERSION)
-	$(BIN_PATH)/buf build --path $(PROTO_PATH)
-
-.PHONY: update-buf
-update-buf: $(BIN_PATH)/buf-$(BUF_VERSION)
-	$(BIN_PATH)/buf mod update $(PROTO_PATH)
-
-.PHONY: generate-proto
-generate-proto: $(BIN_PATH)/buf-$(BUF_VERSION) format-proto lint-proto
-	cd $(PROTO_PATH) && $(BIN_PATH)/buf generate
-
-.PHONY: lint-proto
-lint-proto: $(BIN_PATH)/buf-$(BUF_VERSION)
-	$(BIN_PATH)/buf lint $(PROTO_PATH)
-
-.PHONY: format-proto
-format-proto: $(BIN_PATH)/buf-$(BUF_VERSION)
-	$(BIN_PATH)/buf format -w $(PROTO_PATH)
-
-.PHONY: grpc-curl-local
-grpc-curl-local: DATA := {"service":"health.v1.HealthService/Check"}
-grpc-curl-local: SERVICE := health.v1.HealthService/Check
-grpc-curl-local:
-	$(BIN_PATH)/buf curl --protocol grpc --http2-prior-knowledge  --data '$(DATA)' http://localhost:8080/$(SERVICE)
+.PHONY: generate-openapi-server
+generate-openapi-server: $(BIN_PATH)/oapi-codegen-$(OAPI_CODEGEN_VERSION)
+	mkdir -p $(SERVER_PATH)/openapi
+	rm -f $(SERVER_PATH)/openapi/*.gen.go
+	$(BIN_PATH)/oapi-codegen -package openapi \
+	-generate types \
+	schema/rest/openapi.yaml > server/openapi/types.gen.go
+	$(BIN_PATH)/oapi-codegen -package openapi \
+	-generate chi-server \
+	schema/rest/openapi.yaml > server/openapi/chi_server.gen.go
 
 .PHONY: run-server
 run-server:
@@ -69,7 +50,4 @@ go-vet:
 	cd $(SERVER_PATH) && $(GO_ENV) $(GO) vet ./...
 
 .PHONY: fmt
-fmt: format-proto lint-proto go-tidy go-fmt go-vet
-
-.PHONY: generate
-generate: generate-proto
+fmt: go-tidy go-fmt go-vet

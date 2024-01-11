@@ -11,15 +11,11 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/httplog/v2"
 	"github.com/kelseyhightower/envconfig"
 	"github.com/mi11km/neuron-visualizer/server/interfaces"
-	"github.com/mi11km/neuron-visualizer/server/proto/health/v1/healthv1connect"
-	"github.com/mi11km/neuron-visualizer/server/proto/neuron/v1/neuronv1connect"
-	"golang.org/x/net/http2"
-	"golang.org/x/net/http2/h2c"
+	"github.com/mi11km/neuron-visualizer/server/openapi"
 )
 
 type config struct {
@@ -44,27 +40,25 @@ func main() {
 	)
 	slog.SetDefault(logger.Logger)
 
-	// Handlers
-	neuronServiceHandler, err := interfaces.NewNeuronServiceServer(cfg.NeuronSimulationDir)
+	// Server
+	neuronVisualizer, err := interfaces.NewNeuronVisualizerServer(cfg.NeuronSimulationDir)
 	if err != nil {
-		slog.Error("interfaces.NewNeuronServiceServer", slog.Any("err", err))
+		slog.Error("interfaces.NewNeuronVisualizerHandler", slog.Any("err", err))
 		os.Exit(1)
 	}
 
-	// Server
-	mux := chi.NewRouter()
-	mux.Use(
-		middleware.Recoverer,
-		httplog.RequestLogger(logger),
+	mux := openapi.HandlerWithOptions(
+		neuronVisualizer, openapi.ChiServerOptions{
+			Middlewares: []openapi.MiddlewareFunc{
+				middleware.Recoverer,
+				httplog.RequestLogger(logger),
+			},
+		},
 	)
 
-	path, handler := healthv1connect.NewHealthServiceHandler(&interfaces.HealthServiceHandler{})
-	mux.Handle(fmt.Sprintf("%s*", path), handler)
-	path, handler = neuronv1connect.NewNeuronServiceHandler(neuronServiceHandler)
-	mux.Handle(fmt.Sprintf("%s*", path), handler)
 	server := &http.Server{
 		Addr:    fmt.Sprintf(":%d", cfg.Port),
-		Handler: h2c.NewHandler(mux, &http2.Server{}), // Use h2c so we can serve HTTP/2 without TLS.
+		Handler: mux,
 	}
 
 	errCh := make(chan error, 1)

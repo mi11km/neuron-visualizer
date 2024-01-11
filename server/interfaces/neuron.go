@@ -2,10 +2,11 @@ package interfaces
 
 import (
 	"bufio"
-	"context"
+	"encoding/json"
 	"fmt"
 	"io"
-	"log/slog"
+	"net/http"
+	"net/http/httputil"
 	"os"
 	"os/exec"
 	"path"
@@ -13,76 +14,105 @@ import (
 	"strconv"
 	"strings"
 
-	"connectrpc.com/connect"
-	neuronv1 "github.com/mi11km/neuron-visualizer/server/proto/neuron/v1"
-	"github.com/mi11km/neuron-visualizer/server/proto/neuron/v1/neuronv1connect"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
-	"google.golang.org/protobuf/types/known/emptypb"
+	"github.com/mi11km/neuron-visualizer/server/openapi"
 )
 
-var _ neuronv1connect.NeuronServiceHandler = (*NeuronServiceHandler)(nil)
-
-func NewNeuronServiceServer(neuronSimulationDir string) (*NeuronServiceHandler, error) {
+func NewNeuronVisualizerServer(neuronSimulationDir string) (*NeuronVisualizerServer, error) {
 	rootPath, err := os.Getwd()
 	if err != nil {
 		return nil, err
 	}
-	return &NeuronServiceHandler{
-		rootPath:             rootPath,
-		neuronSimulationPath: path.Join(rootPath, neuronSimulationDir),
-	}, nil
-}
-
-type NeuronServiceHandler struct {
-	rootPath             string
-	neuronSimulationPath string
-}
-
-func (n *NeuronServiceHandler) ListNeurons(
-	ctx context.Context, req *connect.Request[emptypb.Empty],
-) (*connect.Response[neuronv1.ListNeuronsResponse], error) {
-	entries, err := os.ReadDir(n.neuronSimulationPath)
-	if err != nil {
-		return nil, err
-	}
-	neuronNames := make([]string, 0, len(entries))
-	for _, entry := range entries {
-		// フォルダ名がそのままニューロン名になる
-		if entry.IsDir() && entry.Name() != "" {
-			neuronNames = append(neuronNames, entry.Name())
-		}
-	}
-	return connect.NewResponse(
-		&neuronv1.ListNeuronsResponse{
-			NeuronNames: neuronNames,
-		},
-	), nil
-}
-
-func (n *NeuronServiceHandler) GetNeuronShape(
-	ctx context.Context, req *connect.Request[neuronv1.GetNeuronShapeRequest],
-) (*connect.Response[neuronv1.GetNeuronShapeResponse], error) {
-	// swcファイル(ニューロンのコンパートメント情報)を読み込む
-	// swcファイルのパスはデフォルトで以下のようになっている
-	// <root>/simulations/<neuron_name>/<neuron_name>.swc
-	swcFilePath := path.Join(n.neuronSimulationPath, req.Msg.NeuronName, fmt.Sprintf("%s.swc", req.Msg.NeuronName))
-	swcFile, err := os.ReadFile(swcFilePath)
-	if err != nil {
-		return nil, err
-	}
-
-	// swcファイルの各行をパースしてニューロンのコンパートメント情報を取得する
-	lines := strings.Split(string(swcFile), "\n")
-	neuronCompartments := make([]*neuronv1.NeuronCompartment, 0, len(lines))
 	swcLineRegex, err := regexp.Compile(`^(\d+\s+){2}(-?\d+\.\d+\s+){4}-?\d+\s*$`)
 	if err != nil {
 		return nil, err
 	}
+	return &NeuronVisualizerServer{
+		rootPath:             rootPath,
+		neuronSimulationPath: path.Join(rootPath, neuronSimulationDir),
+		swcLineRegex:         swcLineRegex,
+		compartmentTypeMap: map[int64]openapi.NeuronCompartmentTypeName{
+			1: openapi.SOMA,
+			2: openapi.AXON,
+			3: openapi.BASALDENDRITE,
+			4: openapi.APICALDENDRITE,
+		},
+	}, nil
+}
+
+type NeuronVisualizerServer struct {
+	rootPath             string
+	neuronSimulationPath string
+	swcLineRegex         *regexp.Regexp
+	compartmentTypeMap   map[int64]openapi.NeuronCompartmentTypeName
+}
+
+func (n *NeuronVisualizerServer) HealthCheck(w http.ResponseWriter, r *http.Request) {
+	res, err := json.Marshal(
+		&openapi.HealthCheckResponse{
+			Status:  openapi.OK,
+			Message: "Server is running",
+		},
+	)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	if _, err = w.Write(res); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+}
+
+func (n *NeuronVisualizerServer) GetNeurons(w http.ResponseWriter, r *http.Request) {
+	entries, err := os.ReadDir(n.neuronSimulationPath)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	neuronNames := make([]openapi.GetNeuronsResponse, 0, len(entries))
+	for _, entry := range entries {
+		// フォルダ名がそのままニューロン名になる
+		if entry.IsDir() && entry.Name() != "" {
+			neuronNames = append(
+				neuronNames, openapi.GetNeuronsResponse{
+					Name: entry.Name(),
+				},
+			)
+		}
+	}
+	res, err := json.Marshal(neuronNames)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	if _, err = w.Write(res); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+}
+
+func (n *NeuronVisualizerServer) GetNeuronCompartments(
+	w http.ResponseWriter, r *http.Request, neuronName openapi.NeuronName,
+) {
+	// swcファイル(ニューロンのコンパートメント情報)を読み込む
+	// swcファイルのパスはデフォルトで以下のようになっている
+	// <root>/simulations/<neuron_name>/<neuron_name>.swc
+	swcFilePath := path.Join(n.neuronSimulationPath, neuronName, fmt.Sprintf("%s.swc", neuronName))
+	swcFile, err := os.ReadFile(swcFilePath)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	// swcファイルの各行をパースしてニューロンのコンパートメント情報を取得する
+	lines := strings.Split(string(swcFile), "\n")
+	neuronCompartments := make([]openapi.GetNeuronCompartmentsResponse, 0, len(lines))
 	for _, line := range lines {
 		// swcファイルの各行は以下のような形式になっている
 		// <compartment_id> <compartment_type> <x> <y> <z> <radius> <parent_compartment_id>
-		if !swcLineRegex.MatchString(line) {
+		if !n.swcLineRegex.MatchString(line) {
 			continue
 		}
 		words := strings.Fields(line)
@@ -93,133 +123,169 @@ func (n *NeuronServiceHandler) GetNeuronShape(
 		// 変換処理
 		id, err := strconv.ParseInt(words[0], 10, 64)
 		if err != nil {
-			return nil, err
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
 		}
 
-		compartmentTypeInt, err := strconv.ParseFloat(words[1], 32)
+		compartmentTypeInt, err := strconv.ParseInt(words[1], 10, 64)
 		if err != nil {
-			return nil, err
-		}
-		_, ok := neuronv1.NeuronCompartmentType_name[int32(compartmentTypeInt)]
-		if !ok {
-			return nil, status.Errorf(codes.Unavailable, "non-exist compartment type: %v", compartmentTypeInt)
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
 		}
 
-		positionX, err := strconv.ParseFloat(words[2], 32)
+		positionX, err := strconv.ParseFloat(words[2], 64)
 		if err != nil {
-			return nil, err
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
 		}
-		positionY, err := strconv.ParseFloat(words[3], 32)
+		positionY, err := strconv.ParseFloat(words[3], 64)
 		if err != nil {
-			return nil, err
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
 		}
-		positionZ, err := strconv.ParseFloat(words[4], 32)
+		positionZ, err := strconv.ParseFloat(words[4], 64)
 		if err != nil {
-			return nil, err
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
 		}
-		radius, err := strconv.ParseFloat(words[5], 32)
+		radius, err := strconv.ParseFloat(words[5], 64)
 		if err != nil {
-			return nil, err
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
 		}
 
 		parentId, err := strconv.ParseInt(words[6], 10, 64)
 		if err != nil {
-			return nil, err
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
 		}
 
 		neuronCompartments = append(
-			neuronCompartments, &neuronv1.NeuronCompartment{
+			neuronCompartments, openapi.GetNeuronCompartmentsResponse{
 				Id:        id,
-				Type:      neuronv1.NeuronCompartmentType(int32(compartmentTypeInt)),
-				PositionX: float32(positionX),
-				PositionY: float32(positionY),
-				PositionZ: float32(positionZ),
-				Radius:    float32(radius),
-				ParentId:  parentId,
+				ParentID:  parentId,
+				PositionX: positionX,
+				PositionY: positionY,
+				PositionZ: positionZ,
+				Radius:    radius,
+				Type: openapi.NeuronCompartmentType{
+					Id:   compartmentTypeInt,
+					Name: n.compartmentTypeMap[compartmentTypeInt],
+				},
 			},
 		)
 	}
 
-	return connect.NewResponse(
-		&neuronv1.GetNeuronShapeResponse{
-			NeuronCompartments: neuronCompartments,
-		},
-	), nil
+	res, err := json.Marshal(neuronCompartments)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	if _, err = w.Write(res); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 }
 
-func (n *NeuronServiceHandler) GetMembranePotentials(
-	ctx context.Context, req *connect.Request[neuronv1.GetMembranePotentialsRequest],
-	stream *connect.ServerStream[neuronv1.GetMembranePotentialsResponse],
-) error {
+func (n *NeuronVisualizerServer) GetNeuronMembranePotentials(
+	w http.ResponseWriter, r *http.Request, neuronName openapi.NeuronName,
+) {
 	// 一時的にシミュレーションの実行ディレクトリに移動する
 	// <root>/simulations/<neuron_name>/
-	simulationRootPath := path.Join(n.neuronSimulationPath, req.Msg.NeuronName)
+	simulationRootPath := path.Join(n.neuronSimulationPath, neuronName)
 	if err := os.Chdir(simulationRootPath); err != nil {
-		return fmt.Errorf("os.Chdir: %w", err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
 	}
 	defer func() {
 		if err := os.Chdir(n.rootPath); err != nil {
-			slog.Error("os.Chdir: ", slog.Any("error", err))
+			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
 	}()
 	// シミュレーションの実行ファイルのパスはデフォルトで以下のようになっている
 	// <root>/simulations/<neuron_name>/main
 	simulationBinPath := path.Join(simulationRootPath, "main")
 	if _, err := os.Stat(simulationBinPath); err != nil {
-		return fmt.Errorf("os.Stat: %w", err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
 	}
 
-	cmd := exec.CommandContext(ctx, simulationBinPath)
+	cmd := exec.CommandContext(r.Context(), simulationBinPath)
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
-		return fmt.Errorf("cmd.StdoutPipe: %w", err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
 	}
 	stderr, err := cmd.StderrPipe()
 	if err != nil {
-		return fmt.Errorf("cmd.StderrPipe: %w", err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
 	}
 	if err := cmd.Start(); err != nil {
-		return fmt.Errorf("cmd.Start: %w", err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
 	}
+
+	w.Header().Set("Content-Type", "text/event-stream")
+	w.Header().Set("Cache-Control", "no-cache")
+	w.Header().Set("Connection", "keep-alive")
+	flusher, ok := w.(http.Flusher)
+	if !ok {
+		http.Error(w, "Streaming unsupported!", http.StatusInternalServerError)
+		return
+	}
+	cw := httputil.NewChunkedWriter(w)
+	defer cw.Close()
 
 	scanner := bufio.NewScanner(stdout)
 	for scanner.Scan() {
 		// シミュレーションの出力は以下のような形式になっている
 		// <time_step>,<membrane_potential_1>,<membrane_potential_2>,...
 		words := strings.Split(scanner.Text(), ",")
-		timeStep, err := strconv.ParseFloat(words[0], 32)
+		timeStep, err := strconv.ParseFloat(words[0], 64)
 		if err != nil {
-			return fmt.Errorf("strconv.ParseFloat: %w", err)
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
 		}
-		membranePotentials := make([]float32, 0, len(words)-1)
+		membranePotentials := make([]float64, 0, len(words)-1)
 		for _, potentialStr := range words[1:] {
-			membranePotential, err := strconv.ParseFloat(potentialStr, 32)
+			membranePotential, err := strconv.ParseFloat(potentialStr, 64)
 			if err != nil {
-				return fmt.Errorf("strconv.ParseFloat: %w", err)
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
 			}
-			membranePotentials = append(membranePotentials, float32(membranePotential))
+			membranePotentials = append(membranePotentials, membranePotential)
 		}
 
-		if err = stream.Send(
-			&neuronv1.GetMembranePotentialsResponse{
-				TimeStep:           float32(timeStep),
+		res, err := json.Marshal(
+			openapi.GetNeuronCompartmentsMembranePotentialResponse{
+				TimeStep:           timeStep,
 				MembranePotentials: membranePotentials,
 			},
-		); err != nil {
-			return fmt.Errorf("server.Send: %w", err)
+		)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
 		}
+		if _, err = cw.Write(res); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		flusher.Flush()
 	}
 	if err := scanner.Err(); err != nil {
-		return fmt.Errorf("scanner.Err: %w", err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
 	}
 
 	stderrBytes, err := io.ReadAll(stderr)
 	if err != nil {
-		return fmt.Errorf("io.ReadAll: %w", err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
 	}
 	if err := cmd.Wait(); err != nil {
-		return fmt.Errorf("cmd.Wait: %w, %s", err, string(stderrBytes))
+		http.Error(w, string(stderrBytes), http.StatusInternalServerError)
+		return
 	}
-
-	return nil
 }
