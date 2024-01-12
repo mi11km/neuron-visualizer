@@ -1,6 +1,9 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using Unity.VisualScripting;
+using Random = UnityEngine.Random;
 using Domain;
 
 
@@ -18,10 +21,13 @@ namespace Interfaces
         private NeuronRepository _neuronRepository;
         private Coroutine _neuronFiringCoroutine;
         private Neuron _currentNeuron;
+        private List<GameObject> _neurons;
 
         private void Start()
         {
             _neuronRepository = new NeuronRepository(endpoint);
+            _neurons = new List<GameObject>();
+            // GenerateMultiNeuron();
 
             // ニューロンを生成して、プレイヤーを細胞体の前に配置する
             Generate(currentNeuronName, new Vector3(0, 0, 0));
@@ -35,15 +41,33 @@ namespace Interfaces
             if (Input.GetKeyUp(KeyCode.R)) StopFiring(currentNeuronName);
         }
 
+        // ニューロンのゲームオブジェクトを取得する
+        private GameObject FindGeneratedNeuron(string neuronName)
+        {
+            foreach (var n in _neurons)
+            {
+                if (n.name == neuronName)
+                {
+                    return n;
+                }
+            }
+
+            return null;
+        }
+
         // ニューロンをゲームオブジェクトとして生成する
-        private void Generate(string neuronName, Vector3 position)
+        private void Generate(string neuronName, Vector3 position, string neuronNameSuffix = "")
         {
             var neuron = Instantiate(neuronPrefab, position, Quaternion.identity);
-            neuron.name = neuronName;
+            neuron.name = neuronName + neuronNameSuffix;
             _currentNeuron = _neuronRepository.GetNeuron(neuronName);
             foreach (var nc in _currentNeuron.Compartments.Values)
             {
-                var compartmentPosition = new Vector3(nc.PositionX, nc.PositionY, nc.PositionZ);
+                var compartmentPosition = new Vector3(
+                    nc.PositionX + position.x,
+                    nc.PositionY + position.y,
+                    nc.PositionZ + position.z
+                );
 
                 GameObject compartmentObj;
                 if (nc.Type == CompartmentType.Soma)
@@ -56,7 +80,11 @@ namespace Interfaces
                     // 親コンパートメントの位置を取得
                     NeuronCompartment parent;
                     if (!_currentNeuron.Compartments.TryGetValue(nc.ParentId, out parent)) continue;
-                    var parentPosition = new Vector3(parent.PositionX, parent.PositionY, parent.PositionZ);
+                    var parentPosition = new Vector3(
+                        parent.PositionX + position.x,
+                        parent.PositionY + position.y,
+                        parent.PositionZ + position.z
+                    );
 
                     // 親コンパートメントとの中点を計算し、その位置にコンパートメントを生成する
                     var offset = parentPosition - compartmentPosition;
@@ -71,19 +99,60 @@ namespace Interfaces
                 compartmentObj.transform.parent = neuron.transform;
                 compartmentObj.GetComponent<Renderer>().material.color = new Color(1.0f, 0.3f, 0.25f);
             }
+
+            _neurons.Add(neuron);
         }
 
-        // ニューロンが表示されていたら破棄する
-        private void DestroyIfExist(string neuronName)
+        // ニューロンのゲームオブジェクトを削除する
+        private void Destroy(string neuronName)
         {
-            var neuron = GameObject.Find(neuronName); // NOTE: ニューロンの名前が一意である必要がある
-            Destroy(neuron);
+            var neuron = FindGeneratedNeuron(neuronName);
+            _neurons.Remove(neuron);
+            if (!neuron.IsUnityNull()) Destroy(neuron);
+        }
+
+        private void GenerateMultiNeuron()
+        {
+            const float r = 60.0f;
+            const float h = 200.0f;
+            for (var i = 0; i < 8; i++)
+            {
+                var x = Random.Range(-r, r);
+                var y = Random.Range(-h, h);
+                var z = Random.Range(-r, r);
+                Generate("cerebral_cortex_pyramidal_cell", new Vector3(x, y, z), i.ToString());
+            }
+
+            for (var i = 0; i < 2; i++)
+            {
+                var x = Random.Range(-r, r);
+                var y = Random.Range(-h, h);
+                var z = Random.Range(-r, r);
+                Generate("Pvalb_470522102_m_c", new Vector3(x, y, z), i.ToString());
+            }
+        }
+
+        // 生成されたニューロンのゲームオブジェクトを全て削除する
+        private void DestroyAll()
+        {
+            foreach (var n in _neurons)
+            {
+                Destroy(n);
+            }
+
+            _neurons.Clear();
         }
 
         // ニューロン発火のシミュレーションを可視化する (ニューロンのシミュレーション結果の膜電位を取得し、それに応じた色を設定する)
         private void StartFiring(string neuronName)
         {
-            var neuron = GameObject.Find(neuronName); // NOTE: ニューロンの名前が一意である必要がある
+            var neuron = FindGeneratedNeuron(neuronName);
+            if (neuron.IsUnityNull())
+            {
+                Debug.Log("ニューロンが見つかりません");
+                return;
+            }
+
             _neuronFiringCoroutine = StartCoroutine(VisualizeFiringSimulation(neuron));
         }
 
@@ -94,7 +163,7 @@ namespace Interfaces
             StopCoroutine(_neuronFiringCoroutine);
 
             // ニューロンを再生成する
-            DestroyIfExist(neuronName);
+            Destroy(neuronName);
             Generate(neuronName, new Vector3(0, 0, 0));
         }
 
