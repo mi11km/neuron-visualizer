@@ -374,7 +374,7 @@ MonoBehaviour:
   compartmentPrefab: {fileID: 6106130422647819070, guid: 81a97ee967704485cb7bbc65bd0a75ea, type: 3}
   somaPrefab: {fileID: 6759309947291780905, guid: 4146179f30ec84d9ea740ba8999b18d9, type: 3}
   player: {fileID: 2095198569}
-  endpoint: https://42c6-2400-4050-cf25-f00-d9b1-482-534f-9f6d.ngrok-free.app
+  endpoint: https://af14-2400-4050-cf25-f00-d9b1-482-534f-9f6d.ngrok-free.app
 --- !u!4 &1446270404
 Transform:
   m_ObjectHideFlags: 0
