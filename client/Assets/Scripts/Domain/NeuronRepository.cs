@@ -17,14 +17,20 @@ namespace Domain
         private readonly HttpClient _httpClient;
         private CancellationTokenSource _cancellationTokenSource;
 
+        private readonly Dictionary<string, Neuron> _neuronCache;
+
         public NeuronRepository(string endpoint)
         {
             _endpoint = endpoint;
             _httpClient = new HttpClient();
+            _neuronCache = new Dictionary<string, Neuron>();
         }
 
         public Neuron GetNeuron(string name)
         {
+            Neuron neuron;
+            if (_neuronCache.TryGetValue(name, out neuron)) return neuron;
+
             using var request = UnityWebRequest.Get(_endpoint + "/api/v1/neurons/" + name + "/compartments");
             request.downloadHandler = new DownloadHandlerBuffer();
             request.SetRequestHeader("Accept", "application/json");
@@ -40,7 +46,7 @@ namespace Domain
                 throw new Exception(request.error);
             }
 
-            var neuron = new Neuron();
+            neuron = new Neuron();
             var response = JsonUtility.FromJson<GetNeuronCompartmentsResponse>(request.downloadHandler.text);
             foreach (var compartment in response.compartments)
             {
@@ -55,6 +61,7 @@ namespace Domain
                 ));
             }
 
+            _neuronCache.Add(name, neuron);
             return neuron;
         }
 

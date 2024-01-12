@@ -37,6 +37,10 @@ generate-openapi-server: $(BIN_PATH)/oapi-codegen-$(OAPI_CODEGEN_VERSION)
 run-server:
 	cd $(SERVER_PATH) && $(GO_ENV) $(GO) run cmd/main.go
 
+.PHONY: build-server
+build-server:
+	cd $(SERVER_PATH) && $(GO_ENV) $(GO) build -o $(SERVER_PATH)/server cmd/main.go
+
 .PHONY: go-tidy
 go-tidy:
 	cd $(SERVER_PATH) && $(GO_ENV) $(GO) mod tidy

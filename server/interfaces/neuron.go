@@ -106,17 +106,63 @@ func (n *NeuronVisualizerServer) GetNeuronCompartments(
 		return
 	}
 
-	// swcファイルの各行をパースしてニューロンのコンパートメント情報を取得する
-	lines := strings.Split(string(swcFile), "\n")
-	neuronCompartments := make([]openapi.NeuronCompartment, 0, len(lines))
-	for _, line := range lines {
+	validateSwcLine := func(line string) []string {
 		// swcファイルの各行は以下のような形式になっている
 		// <compartment_id> <compartment_type> <x> <y> <z> <radius> <parent_compartment_id>
 		if !n.swcLineRegex.MatchString(line) {
-			continue
+			return nil
 		}
 		words := strings.Fields(line)
 		if len(words) != 7 {
+			return nil
+		}
+		return words
+	}
+
+	// swcファイルの各行をパースしてニューロンのコンパートメント情報を取得する
+	lines := strings.Split(string(swcFile), "\n")
+	neuronCompartments := make([]openapi.NeuronCompartment, 0, len(lines))
+
+	// somaの位置を 0, 0, 0 にするために、取得する
+	var somaPositionX, somaPositionY, somaPositionZ float64
+	for _, line := range lines {
+		var err error
+		words := validateSwcLine(line)
+		if words == nil {
+			continue
+		}
+
+		compartmentTypeInt, err := strconv.ParseInt(words[1], 10, 64)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		// somaのみを対象とする
+		if compartmentTypeInt != 1 {
+			continue
+		}
+
+		somaPositionX, err = strconv.ParseFloat(words[2], 64)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		somaPositionY, err = strconv.ParseFloat(words[3], 64)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		somaPositionZ, err = strconv.ParseFloat(words[4], 64)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		break
+	}
+
+	for _, line := range lines {
+		words := validateSwcLine(line)
+		if words == nil {
 			continue
 		}
 
@@ -164,9 +210,9 @@ func (n *NeuronVisualizerServer) GetNeuronCompartments(
 			neuronCompartments, openapi.NeuronCompartment{
 				Id:        id,
 				ParentId:  parentId,
-				PositionX: positionX,
-				PositionY: positionY,
-				PositionZ: positionZ,
+				PositionX: positionX - somaPositionX,
+				PositionY: positionY - somaPositionY,
+				PositionZ: positionZ - somaPositionZ,
 				Radius:    radius,
 				Type: openapi.NeuronCompartmentType{
 					Id:   compartmentTypeInt,
