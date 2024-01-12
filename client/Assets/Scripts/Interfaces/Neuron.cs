@@ -12,8 +12,7 @@ namespace Interfaces
         [SerializeField] private GameObject somaPrefab; // 細胞体プレハブ
         [SerializeField] private Player player;
         [SerializeField] private string endpoint;
-
-        private readonly string _currentNeuronName = "cerebral_cortex_pyramidal_cell";
+        [SerializeField] private string currentNeuronName;
 
         private NeuronRepository _neuronRepository;
         private Domain.Neuron _currentNeuron;
@@ -32,13 +31,13 @@ namespace Interfaces
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.F)) StartFiring();
-            if (Input.GetKeyUp(KeyCode.S)) StopFiring();
+            if (Input.GetKeyUp(KeyCode.R)) StopFiring();
         }
 
         // ニューロンをゲームオブジェクトとして生成する
         private void Generate()
         {
-            _currentNeuron = _neuronRepository.GetNeuron(_currentNeuronName);
+            _currentNeuron = _neuronRepository.GetNeuron(currentNeuronName);
             foreach (var nc in _currentNeuron.Compartments.Values)
             {
                 var position = new Vector3(nc.PositionX, nc.PositionY, nc.PositionZ);
@@ -102,7 +101,7 @@ namespace Interfaces
             const float maxMembranePotential = -30.0f - minMembranePotential;
             const float hsvColorMapMin = 0.5f;
             const float hsvColorMapMax = 1.0f;
-            var membranePotentialsIterator = _neuronRepository.GetMembranePotentials(_currentNeuronName);
+            var membranePotentialsIterator = _neuronRepository.GetMembranePotentials(currentNeuronName);
             foreach (var membranePotentials in membranePotentialsIterator)
             {
                 for (int i = 0; i < transform.childCount; i++)
