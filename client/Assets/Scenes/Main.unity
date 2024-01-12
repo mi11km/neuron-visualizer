@@ -353,7 +353,7 @@ GameObject:
   - component: {fileID: 1446270404}
   - component: {fileID: 1446270403}
   m_Layer: 0
-  m_Name: Neuron
+  m_Name: NeuronGenerator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -371,11 +371,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb5592e07e3dc47ffa17f4aabd941c68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  neuronPrefab: {fileID: 4361186687752906680, guid: 3f7b5100044c54ccfbd20094431bb03c, type: 3}
   compartmentPrefab: {fileID: 6106130422647819070, guid: 81a97ee967704485cb7bbc65bd0a75ea, type: 3}
   somaPrefab: {fileID: 6759309947291780905, guid: 4146179f30ec84d9ea740ba8999b18d9, type: 3}
   player: {fileID: 2095198569}
-  endpoint: https://af14-2400-4050-cf25-f00-d9b1-482-534f-9f6d.ngrok-free.app
-  currentNeuronName: Pvalb_470522102_m_c
+  endpoint: http://localhost:8080
+  currentNeuronName: cerebral_cortex_pyramidal_cell
 --- !u!4 &1446270404
 Transform:
   m_ObjectHideFlags: 0
