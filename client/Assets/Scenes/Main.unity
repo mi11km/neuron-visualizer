@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028326, g: 0.22571333, b: 0.30692202, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -374,7 +374,7 @@ MonoBehaviour:
   compartmentPrefab: {fileID: 6106130422647819070, guid: 81a97ee967704485cb7bbc65bd0a75ea, type: 3}
   somaPrefab: {fileID: 6759309947291780905, guid: 4146179f30ec84d9ea740ba8999b18d9, type: 3}
   player: {fileID: 2095198569}
-  endpoint: http://localhost:8080
+  endpoint: https://af14-2400-4050-cf25-f00-d9b1-482-534f-9f6d.ngrok-free.app
 --- !u!4 &1446270404
 Transform:
   m_ObjectHideFlags: 0
