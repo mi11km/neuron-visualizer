@@ -19,7 +19,7 @@ namespace Interfaces
         // プレイヤーを指定した位置が目の前になるように配置する
         public void RepositionInFrontOf(float x, float y, float z)
         {
-            transform.position = new Vector3(x, y, z - 50.0f);
+            transform.position = new Vector3(x, y, z - 10.0f);
             transform.LookAt(new Vector3(x, y, z));
         }
 
