@@ -46,7 +46,12 @@ type NeuronVisualizerServer struct {
 	compartmentTypeMap   map[int64]openapi.NeuronCompartmentTypeName
 }
 
-func (n *NeuronVisualizerServer) HealthCheck(w http.ResponseWriter, _ *http.Request) {
+func (n *NeuronVisualizerServer) HealthCheck(w http.ResponseWriter, r *http.Request) {
+	if mediaType := r.Header.Get("Accept"); mediaType != "application/json" {
+		http.Error(w, "Unsupported media type", http.StatusUnsupportedMediaType)
+		return
+	}
+
 	res, err := json.Marshal(
 		&openapi.HealthCheckResponse{
 			Status:  openapi.OK,
@@ -64,7 +69,12 @@ func (n *NeuronVisualizerServer) HealthCheck(w http.ResponseWriter, _ *http.Requ
 	}
 }
 
-func (n *NeuronVisualizerServer) GetNeurons(w http.ResponseWriter, _ *http.Request) {
+func (n *NeuronVisualizerServer) GetNeurons(w http.ResponseWriter, r *http.Request) {
+	if mediaType := r.Header.Get("Accept"); mediaType != "application/json" {
+		http.Error(w, "Unsupported media type", http.StatusUnsupportedMediaType)
+		return
+	}
+
 	entries, err := os.ReadDir(n.neuronSimulationPath)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -94,8 +104,13 @@ func (n *NeuronVisualizerServer) GetNeurons(w http.ResponseWriter, _ *http.Reque
 }
 
 func (n *NeuronVisualizerServer) GetNeuronCompartments(
-	w http.ResponseWriter, _ *http.Request, neuronName openapi.NeuronName,
+	w http.ResponseWriter, r *http.Request, neuronName openapi.NeuronName,
 ) {
+	if mediaType := r.Header.Get("Accept"); mediaType != "application/json" {
+		http.Error(w, "Unsupported media type", http.StatusUnsupportedMediaType)
+		return
+	}
+
 	// swcファイル(ニューロンのコンパートメント情報)を読み込む
 	// swcファイルのパスはデフォルトで以下のようになっている
 	// <root>/simulations/<neuron_name>/<neuron_name>.swc
@@ -237,6 +252,12 @@ func (n *NeuronVisualizerServer) GetNeuronCompartments(
 func (n *NeuronVisualizerServer) GetNeuronMembranePotentials(
 	w http.ResponseWriter, r *http.Request, neuronName openapi.NeuronName,
 ) {
+	// SSEのみをサポートする
+	if mediaType := r.Header.Get("Accept"); mediaType != "text/event-stream" {
+		http.Error(w, "Unsupported media type", http.StatusUnsupportedMediaType)
+		return
+	}
+
 	// 一時的にシミュレーションの実行ディレクトリに移動する
 	// <root>/simulations/<neuron_name>/
 	simulationRootPath := path.Join(n.neuronSimulationPath, neuronName)
