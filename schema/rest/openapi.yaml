@@ -85,10 +85,7 @@ paths:
           content:
             text/event-stream:
               schema:
-                type: array
-                format: event-stream
-                items:
-                  $ref: '#/components/schemas/GetNeuronCompartmentsMembranePotentialResponse'
+                $ref: '#/components/schemas/GetNeuronCompartmentsMembranePotentialResponse'
 components:
   schemas:
     HealthCheckResponse:
@@ -140,10 +137,12 @@ components:
             type: number
             format: double
             description: Membrane potential of the compartment.
-            example: -65.0
+            example: -92.490908
       required:
         - timeStep
         - membranePotentials
+      example: |
+        {"membranePotentials":[-92.490908,...,-92.49534],"timeStep":0}
     NeuronName:
       type: string
       description: Name of the neuron
