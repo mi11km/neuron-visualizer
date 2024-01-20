@@ -4,3 +4,4 @@ The Neuron Visualizer is a tool for visualizing the multi compartment model of a
 ## Development
 ### Requirements
 - Go
+- Unity
