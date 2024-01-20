@@ -12,6 +12,7 @@ public class Main : MonoBehaviour
 
     private void Start()
     {
+        menu.SetMenuMessage("表示するニューロンを選択してください");
         menu.SetNeuronDropdownOptions(neuronGenerator.GetAvailableNeuronNames());
     }
 
@@ -29,24 +30,29 @@ public class Main : MonoBehaviour
         var neuronObj = neuronGenerator.FindGeneratedNeuron(neuronName);
         if (neuronObj != null) return;
         
-        menu.gameObject.SetActive(false);
+        menu.SetMenuMessage("ニューロンを生成しています...");
 
         // ニューロンを1つだけ表示して、プレイヤーをニューロンの前に移動する
         neuronGenerator.DestroyAllNeurons();
         _generatedNeuronObj = await neuronGenerator.GenerateSingleNeuron(neuronName, new Vector3(0, 0, 0));
         var neuronPosition = _generatedNeuronObj.transform.position;
         player.RepositionInFrontOf(neuronPosition, 20.0f);
+        menu.gameObject.SetActive(false);
+        
+        menu.SetMenuMessage($"ニューロン {neuronName} が表示されています");
     }
 
     public void StartSingleNeuronFiring()
     {
         if (_generatedNeuronObj == null) return;
+        menu.ToggleNeuronFiringButtons();
         neuronGenerator.StartSingleNeuronFiring(_generatedNeuronObj);
     }
 
     public void StopSingleNeuronFiring()
     {
         if (_generatedNeuronObj == null) return;
+        menu.ToggleNeuronFiringButtons();
         neuronGenerator.StopSingleNeuronFiring(_generatedNeuronObj);
     }
 
