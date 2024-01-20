@@ -54,10 +54,10 @@ namespace Interfaces
         public void SetNeuronDropdownOptions(List<string> neuronNames)
         {
             neuronDropdown.ClearOptions();
-            neuronDropdown.AddOptions(new List<string> {""});
+            neuronDropdown.AddOptions(new List<string> {"", "複数ニューロン"});
             neuronDropdown.AddOptions(neuronNames);
         }
-        
+
         /*
          * ニューロン発火ボタン
          */
@@ -66,7 +66,7 @@ namespace Interfaces
             startFiringButton.gameObject.SetActive(!startFiringButton.gameObject.activeSelf);
             stopFiringButton.gameObject.SetActive(!stopFiringButton.gameObject.activeSelf);
         }
-        
+
         /*
          * メニューメッセージ
          */

@@ -28,6 +28,27 @@ public class Main : MonoBehaviour
     {
         var neuronName = menu.GetNeuronDropdownSelectedText();
         if (neuronName == "") return;
+
+        if (neuronName == "複数ニューロン")
+        {
+            menu.SetMenuMessage($"{neuronName}を生成しています...");
+            try
+            {
+                neuronGenerator.DestroyAllNeurons();
+                await neuronGenerator.GenerateMultiNeuron();
+            } 
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                menu.SetMenuMessage($"{neuronName}の生成に失敗しました");
+                return;
+            }
+            player.RepositionInFrontOf(new Vector3(0, 0, 0), 160.0f);
+            menu.gameObject.SetActive(false);
+            menu.SetMenuMessage($"{neuronName}が表示されています");
+            return;
+        }
+
         // 既に生成されているニューロンの場合は何もしない
         var neuronObj = neuronGenerator.FindGeneratedNeuron(neuronName);
         if (neuronObj != null)
@@ -37,8 +58,6 @@ public class Main : MonoBehaviour
             menu.SetMenuMessage("表示するニューロンを選択してください");
             return;
         }
-
-        ;
 
         menu.SetMenuMessage("ニューロンを生成しています...");
 

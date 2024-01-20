@@ -175,11 +175,11 @@ namespace Interfaces
             _neuronFiringCoroutines.Remove(neuronObj.name);
         }
 
-        public async void GenerateMultiNeuron()
+        public async UniTask<bool> GenerateMultiNeuron()
         {
             const float r = 60.0f;
-            const float h = 200.0f;
-            for (var i = 0; i < 8; i++)
+            const float h = 100.0f;
+            for (var i = 0; i < 4; i++)
             {
                 var x = Random.Range(-r, r);
                 var y = Random.Range(-h, h);
@@ -187,13 +187,15 @@ namespace Interfaces
                 await GenerateSingleNeuron("cerebral_cortex_pyramidal_cell", new Vector3(x, y, z), i.ToString());
             }
 
-            for (var i = 0; i < 2; i++)
+            for (var i = 0; i < 1; i++)
             {
                 var x = Random.Range(-r, r);
                 var y = Random.Range(-h, h);
                 var z = Random.Range(-r, r);
                 await GenerateSingleNeuron("Pvalb_470522102_m_c", new Vector3(x, y, z), i.ToString());
             }
+
+            return true;
         }
 
         /// <summary>
