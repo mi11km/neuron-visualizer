@@ -5,7 +5,7 @@ namespace Openapi
     [Serializable]
     public class GetNeuronsResponse
     {
-        public Neuron neurons;
+        public Neuron[] neurons;
     }
 
     [Serializable]
