@@ -28,13 +28,14 @@ public class Main : MonoBehaviour
         // 既に生成されているニューロンの場合は何もしない
         var neuronObj = neuronGenerator.FindGeneratedNeuron(neuronName);
         if (neuronObj != null) return;
+        
+        menu.gameObject.SetActive(false);
 
         // ニューロンを1つだけ表示して、プレイヤーをニューロンの前に移動する
         neuronGenerator.DestroyAllNeurons();
         _generatedNeuronObj = await neuronGenerator.GenerateSingleNeuron(neuronName, new Vector3(0, 0, 0));
         var neuronPosition = _generatedNeuronObj.transform.position;
-        player.RepositionInFrontOf(neuronPosition, 8.0f);
-        menu.gameObject.SetActive(false);
+        player.RepositionInFrontOf(neuronPosition, 20.0f);
     }
 
     public void StartSingleNeuronFiring()
