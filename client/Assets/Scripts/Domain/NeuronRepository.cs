@@ -4,6 +4,7 @@ using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
 using Openapi;
@@ -48,7 +49,7 @@ namespace Domain
             return names;
         }
 
-        public Neuron GetNeuron(string name)
+        public async UniTask<Neuron> GetNeuron(string name)
         {
             Neuron neuron;
             if (_neuronCache.TryGetValue(name, out neuron)) return neuron;
@@ -56,7 +57,7 @@ namespace Domain
             using var request = UnityWebRequest.Get(_endpoint + "/api/v1/neurons/" + name + "/compartments");
             request.downloadHandler = new DownloadHandlerBuffer();
             request.SetRequestHeader("Accept", "application/json");
-            request.SendWebRequest();
+            await request.SendWebRequest();
 
             while (request.result == UnityWebRequest.Result.InProgress)
             {

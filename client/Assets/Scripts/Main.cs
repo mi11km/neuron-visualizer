@@ -21,7 +21,7 @@ public class Main : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space)) ToggleMenu();
     }
 
-    public void OnSelectedNeuronName()
+    public async void OnSelectedNeuronName()
     {
         var neuronName = menu.GetNeuronDropdownSelectedText();
         if (neuronName == "") return;
@@ -31,7 +31,7 @@ public class Main : MonoBehaviour
 
         // ニューロンを1つだけ表示して、プレイヤーをニューロンの前に移動する
         neuronGenerator.DestroyAllNeurons();
-        _generatedNeuronObj = neuronGenerator.GenerateSingleNeuron(neuronName, new Vector3(0, 0, 0));
+        _generatedNeuronObj = await neuronGenerator.GenerateSingleNeuron(neuronName, new Vector3(0, 0, 0));
         var neuronPosition = _generatedNeuronObj.transform.position;
         player.RepositionInFrontOf(neuronPosition, 8.0f);
         menu.gameObject.SetActive(false);
