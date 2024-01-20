@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using Cysharp.Threading.Tasks;
+using UnityEngine;
 using Interfaces;
 
 public class Main : MonoBehaviour
@@ -28,32 +30,65 @@ public class Main : MonoBehaviour
         if (neuronName == "") return;
         // 既に生成されているニューロンの場合は何もしない
         var neuronObj = neuronGenerator.FindGeneratedNeuron(neuronName);
-        if (neuronObj != null) return;
-        
+        if (neuronObj != null)
+        {
+            menu.SetMenuMessage("既に生成されているニューロンです");
+            await UniTask.Delay(2000, cancellationToken: this.GetCancellationTokenOnDestroy());
+            menu.SetMenuMessage("表示するニューロンを選択してください");
+            return;
+        }
+
+        ;
+
         menu.SetMenuMessage("ニューロンを生成しています...");
 
         // ニューロンを1つだけ表示して、プレイヤーをニューロンの前に移動する
-        neuronGenerator.DestroyAllNeurons();
-        _generatedNeuronObj = await neuronGenerator.GenerateSingleNeuron(neuronName, new Vector3(0, 0, 0));
+        try
+        {
+            neuronGenerator.DestroyAllNeurons();
+            _generatedNeuronObj = await neuronGenerator.GenerateSingleNeuron(neuronName, new Vector3(0, 0, 0));
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            menu.SetMenuMessage("ニューロンの生成に失敗しました");
+            return;
+        }
+
         var neuronPosition = _generatedNeuronObj.transform.position;
         player.RepositionInFrontOf(neuronPosition, 20.0f);
         menu.gameObject.SetActive(false);
-        
         menu.SetMenuMessage($"ニューロン {neuronName} が表示されています");
     }
 
     public void StartSingleNeuronFiring()
     {
-        if (_generatedNeuronObj == null) return;
-        menu.ToggleNeuronFiringButtons();
-        neuronGenerator.StartSingleNeuronFiring(_generatedNeuronObj);
+        try
+        {
+            if (_generatedNeuronObj == null) return;
+            menu.ToggleNeuronFiringButtons();
+            neuronGenerator.StartSingleNeuronFiring(_generatedNeuronObj);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            menu.SetMenuMessage("シミュレーションの開始に失敗しました");
+        }
     }
 
     public void StopSingleNeuronFiring()
     {
-        if (_generatedNeuronObj == null) return;
-        menu.ToggleNeuronFiringButtons();
-        neuronGenerator.StopSingleNeuronFiring(_generatedNeuronObj);
+        try
+        {
+            if (_generatedNeuronObj == null) return;
+            menu.ToggleNeuronFiringButtons();
+            neuronGenerator.StopSingleNeuronFiring(_generatedNeuronObj);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            menu.SetMenuMessage("シミュレーションの停止に失敗しました");
+        }
     }
 
     private void ToggleMenu()

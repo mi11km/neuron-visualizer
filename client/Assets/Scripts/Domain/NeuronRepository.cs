@@ -95,7 +95,8 @@ namespace Domain
 
             if (!response.Result.IsSuccessStatusCode)
             {
-                throw new Exception(response.Result.ReasonPhrase);
+                Console.WriteLine(response.Result.StatusCode);
+                yield break;
             }
 
             using var stream = response.Result.Content.ReadAsStreamAsync();
