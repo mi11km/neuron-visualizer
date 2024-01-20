@@ -2214,9 +2214,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1787467059}
     m_Modifications:
+    - target: {fileID: 2962023036979876346, guid: 8b994c3f8ce4f2843b153333a660c7ff, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 450
+      objectReference: {fileID: 0}
     - target: {fileID: 3493328087153743537, guid: 8b994c3f8ce4f2843b153333a660c7ff, type: 3}
       propertyPath: m_text
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3493328087153743537, guid: 8b994c3f8ce4f2843b153333a660c7ff, type: 3}
+      propertyPath: m_fontSize
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 3493328087153743537, guid: 8b994c3f8ce4f2843b153333a660c7ff, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 3541034258457338293, guid: 8b994c3f8ce4f2843b153333a660c7ff, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -2317,6 +2329,18 @@ PrefabInstance:
     - target: {fileID: 5658238415746341894, guid: 8b994c3f8ce4f2843b153333a660c7ff, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: StopSingleNeuronFiring
+      objectReference: {fileID: 0}
+    - target: {fileID: 5915705696604570850, guid: 8b994c3f8ce4f2843b153333a660c7ff, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 650
+      objectReference: {fileID: 0}
+    - target: {fileID: 5915705696604570850, guid: 8b994c3f8ce4f2843b153333a660c7ff, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 5915705696604570850, guid: 8b994c3f8ce4f2843b153333a660c7ff, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 6130630360581750251, guid: 8b994c3f8ce4f2843b153333a660c7ff, type: 3}
       propertyPath: m_Name

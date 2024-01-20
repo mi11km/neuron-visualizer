@@ -63,6 +63,6 @@ public class Main : MonoBehaviour
         menu.ToggleMenu(playerPosition, -centerCameraDirection);
         if (!menu.gameObject.activeSelf) return;
         var menuPosition = menu.transform.position;
-        player.RepositionInFrontOf(menuPosition, 0.4f);
+        player.RepositionInFrontOf(menuPosition, 0.6f);
     }
 }
