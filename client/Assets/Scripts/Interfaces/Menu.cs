@@ -1,12 +1,16 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Interfaces
 {
     public class Menu : MonoBehaviour
     {
         [SerializeField] private TMP_Dropdown neuronDropdown;
+        [SerializeField] private Button startFiringButton;
+        [SerializeField] private Button stopFiringButton;
+        [SerializeField] private TextMeshProUGUI menuMessage;
 
         private void Awake()
         {
@@ -50,8 +54,25 @@ namespace Interfaces
         public void SetNeuronDropdownOptions(List<string> neuronNames)
         {
             neuronDropdown.ClearOptions();
-            neuronDropdown.AddOptions(new List<string> {""});
+            neuronDropdown.AddOptions(new List<string> {"", "複数ニューロン"});
             neuronDropdown.AddOptions(neuronNames);
+        }
+
+        /*
+         * ニューロン発火ボタン
+         */
+        public void ToggleNeuronFiringButtons()
+        {
+            startFiringButton.gameObject.SetActive(!startFiringButton.gameObject.activeSelf);
+            stopFiringButton.gameObject.SetActive(!stopFiringButton.gameObject.activeSelf);
+        }
+
+        /*
+         * メニューメッセージ
+         */
+        public void SetMenuMessage(string message)
+        {
+            menuMessage.SetText(message);
         }
     }
 }
