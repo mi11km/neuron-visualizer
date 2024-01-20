@@ -8,8 +8,11 @@ namespace Domain
         // コンパートメントのディクショナリ（key: NeuronCompartment.ID, value: NeuronCompartment）
         public Dictionary<long, NeuronCompartment> Compartments { get; }
 
-        public Neuron()
+        public string Name { get; }
+
+        public Neuron(string name)
         {
+            Name = name;
             Compartments = new Dictionary<long, NeuronCompartment>();
         }
 
